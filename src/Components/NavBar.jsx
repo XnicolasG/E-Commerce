@@ -19,7 +19,7 @@ const navPaths2 = [
 const NavBar = () => {
     const activeStyle = 'underline underline-offset-4 font-semibold'
     return (
-        <nav className='flex justify-between items-center p-4 bg-black text-white  border-b-2 border-gray-400 fixed z-10 top-0 w-full'>
+        <nav className='flex justify-between items-center p-4 bg-black text-white fixed z-10 top-0 w-full'>
             <ul className='flex items-center'>
                 <li className='flex gap-3'>
                     {

@@ -7,14 +7,15 @@ import SingIn from '../SingIn/SingIn.jsx'
 import NotFound from '../NotFound/NotFound.jsx'
 import NavBar from '../../Components/NavBar.jsx';
 import './../../App.css'
+import ContextProvider from '../../Context/ContextProvider ContextProvider.jsx';
 
 const AppRoutes = () => {
   let routes = useRoutes([
-    {path: '/',element: <Home />, },
-    {path: '/MyAccount',element: <MyAccount />,},
-    {path: '/Orders',element: <Orders />,},
-    {path: '/SingIn',element: <SingIn />,},
-    {path: '/*',element: <NotFound />,},
+    { path: '/', element: <Home />, },
+    { path: '/MyAccount', element: <MyAccount />, },
+    { path: '/Orders', element: <Orders />, },
+    { path: '/SingIn', element: <SingIn />, },
+    { path: '/*', element: <NotFound />, },
 
   ])
   return routes
@@ -22,10 +23,12 @@ const AppRoutes = () => {
 
 export const App = () => {
   return (
-    <BrowserRouter>
-    <NavBar />
-      <AppRoutes />
-    </BrowserRouter>
+    <ContextProvider>
+      <BrowserRouter>
+        <NavBar />
+        <AppRoutes />
+      </BrowserRouter>
+    </ContextProvider>
   )
 }
 
