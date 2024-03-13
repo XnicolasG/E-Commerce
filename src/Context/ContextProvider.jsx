@@ -4,10 +4,19 @@ import { createContext, useState } from "react";
 export const CartContext = createContext()
 
 const ContextProvider = ({ children }) => {
+  const [state, setState] = useState({
+    count: 0,
+    items: null,
+    loading: true,
+    openCart: false,
+    cartProducts: [],
+  })
+
   const [count, setCount] = useState(0)
   const [items, setItems] = useState(null);
   const [loading, setLoading] = useState(true)
   const [openCart, setOpenCart] = useState(false)
+  const [cartProducts, setCartProducts] = useState([])
 
   const openCartDetail = () => setOpenCart(true)
   const closeCartDetail = () => setOpenCart(false)

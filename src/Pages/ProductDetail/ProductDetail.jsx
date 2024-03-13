@@ -32,6 +32,7 @@ const ProductDetail = () => {
                     <div className='my-4 flex items-center gap-4 '>
                         <p className='bg-red-500 p-1 rounded-md text-white '>Hot Sale</p> <p className='font-semibold '>20% Off this week</p>
                     </div>
+                    <p>{description}</p>
                     <p className='mt-4'> ⭐<span className='font-semibold'>{rate}/5 </span> based on <span className='font-semibold'>{count}</span> ratings</p>
                     <p className='my-4'>Availability: <span className='font-semibold'>In Stock</span></p>
                     <button
