@@ -7,7 +7,7 @@ import SingIn from '../SingIn/SingIn.jsx'
 import NotFound from '../NotFound/NotFound.jsx'
 import NavBar from '../../Components/NavBar.jsx';
 import './../../App.css'
-import ContextProvider from '../../Context/ContextProvider ContextProvider.jsx';
+import ContextProvider from '../../Context/ContextProvider.jsx';
 
 const AppRoutes = () => {
   let routes = useRoutes([

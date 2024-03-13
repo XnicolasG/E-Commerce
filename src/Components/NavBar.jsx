@@ -1,27 +1,31 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+import { CartContext } from '../Context/ContextProvider';
 
-const navPaths1 = [
-    { name: 'SmartShop', path: '/' },
-    { name: 'All', path: '/All' },
-    { name: 'Clothes', path: '/Clothes' },
-    { name: 'Electronics', path: '/Electronics' },
-    { name: 'Fornitures', path: '/Fornitures' },
-    { name: 'Others', path: '/Others' },
-];
-const navPaths2 = [
-    { name: 'Orders', path: '/Orders' },
-    { name: 'My Account', path: '/MyAccount' },
-    { name: 'Sing in', path: '/SingIn' },
-    { name: '🛒 0', path: '/Cart' },
-]
+
+
 
 const NavBar = () => {
+    const {count} = useContext(CartContext)
+    const navPaths1 = [
+        { name: 'SmartShop', path: '/' },
+        { name: 'All', path: '/All' },
+        { name: 'Clothes', path: '/Clothes' },
+        { name: 'Electronics', path: '/Electronics' },
+        { name: 'Fornitures', path: '/Fornitures' },
+        { name: 'Others', path: '/Others' },
+    ];
+    const navPaths2 = [
+        { name: 'Orders', path: '/Orders' },
+        { name: 'My Account', path: '/MyAccount' },
+        { name: 'Sing in', path: '/SingIn' },
+        { name: `🛒 ${count}`, path: '/Cart' },
+    ]
     const activeStyle = 'underline underline-offset-4 font-semibold'
     return (
-        <nav className='flex justify-between items-center p-4 bg-black text-white fixed z-10 top-0 w-full'>
+        <nav className='flex justify-between items-center p-3 bg-black text-white fixed z-30 top-0 w-full text-xs sm:text-lg '>
             <ul className='flex items-center'>
-                <li className='flex gap-3'>
+                <li className='flex gap-3 '>
                     {
                         navPaths1.map((item) => (
                             <NavLink
@@ -55,5 +59,6 @@ const NavBar = () => {
         </nav>
     )
 }
+
 
 export default NavBar

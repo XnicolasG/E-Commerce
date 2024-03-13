@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../../Components/Layout/Layout'
 import Card from '../../Components/Card/Card'
+import CartDetail from '../../Components/CartDetail/CartDetail'
 
 
 const apiUrl = 'https://fakestoreapi.com/products'
@@ -31,6 +32,7 @@ const Home = () => {
           ))
         }
       </section>
+      <CartDetail />
     </Layout>
   )
 }
