@@ -6,7 +6,7 @@ import { CartContext } from '../Context/ContextProvider';
 
 
 const NavBar = () => {
-    const {count} = useContext(CartContext)
+    const {count, openCartDetail} = useContext(CartContext)
     const navPaths1 = [
         { name: 'SmartShop', path: '/' },
         { name: 'All', path: '/All' },
@@ -19,11 +19,11 @@ const NavBar = () => {
         { name: 'Orders', path: '/Orders' },
         { name: 'My Account', path: '/MyAccount' },
         { name: 'Sing in', path: '/SingIn' },
-        { name: `🛒 ${count}`, path: '/Cart' },
+        { name: `🛒 ${count}`, path: '/' },
     ]
-    const activeStyle = 'underline underline-offset-4 font-semibold'
+    const activeStyle = ' font-semibold'
     return (
-        <nav className='flex justify-between items-center p-3 bg-black text-white fixed z-30 top-0 w-full text-xs sm:text-lg '>
+        <nav className='flex justify-between items-center p-3 bg-black backdrop-blur-sm text-white fixed z-30 top-0 w-full text-xs md:text-lg '>
             <ul className='flex items-center'>
                 <li className='flex gap-3 '>
                     {
@@ -48,6 +48,12 @@ const NavBar = () => {
                                 key={item.name}
                                 to={item.path}
                                 className={({ isActive }) => isActive ? activeStyle : {} }
+                                onClick={() => {
+                                    if (item.name === `🛒 ${count}`) {
+                                        openCartDetail()
+                                        console.log('funciona');
+                                    }
+                                }}
                             >
                                 {item.name}
                             </NavLink>

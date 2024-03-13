@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+
 body{
     background-color: rgba(234, 244, 255, 0.521);
+    font-family: 'Lexend Variable', sans-serif;
  }
