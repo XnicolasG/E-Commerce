@@ -5,10 +5,10 @@ import { ArrowLeftIcon } from '@heroicons/react/24/solid'
 
 
 const ProductDetail = () => {
-    const { items,count:cartCount, setCount } = useContext(CartContext)
+    const { items,count:cartCount, setCount, state, updateState } = useContext(CartContext)
     const { id } = useParams();
     const productId = parseInt(id)
-    const product = items?.find(item => item.id === productId);
+    const product = state.items?.find(item => item.id === productId);
     const { category, description, image, price, rating: { rate, count }, title } = product
     console.log(product);
     return (
@@ -36,7 +36,9 @@ const ProductDetail = () => {
                     <p className='mt-4'> ⭐<span className='font-semibold'>{rate}/5 </span> based on <span className='font-semibold'>{count}</span> ratings</p>
                     <p className='my-4'>Availability: <span className='font-semibold'>In Stock</span></p>
                     <button
-                    onClick={() => setCount(cartCount + 1)}
+                    onClick={() => updateState({
+                        count: count + 1
+                    })}
                         className='flex w-1/2 justify-center gap-2 items-center mx-auto p-1 px-2 rounded-md bg-blue-600 text-white hover:bg-blue-800 transition-all '
                         type='button'>Add to cart 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">

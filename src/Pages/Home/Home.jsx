@@ -7,28 +7,34 @@ import { CartContext } from '../../Context/ContextProvider'
 
 const apiUrl = 'https://fakestoreapi.com/products'
 const Home = () => {
-  const {items, setItems, setLoading} = useContext(CartContext)
-  console.log(items);
+  const {state,updateState } = useContext(CartContext)
+  console.log(state.items);
   useEffect(() => {
     const fetchData = async () =>{
       try {
         const response = await fetch(apiUrl);
         const data = await response.json();
-        setItems(data)
+        updateState({
+          items: data
+        })
       } catch (error) {
-        throw new error
+        throw new Error(error)
       }
     };
     fetchData();
-  }, [setItems])
-  console.log(items);
+  }, [])
+
+   console.log(state.items);
+
+   
+
   return (
     <Layout>
       Home
       <section className='grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center max-w-screen-2xl transition-all'>
 
         {
-          items?.map((prod) => (
+          state.items?.map((prod) => (
               <Card
                 key={prod.id}
                 {...prod}

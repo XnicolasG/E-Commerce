@@ -4,6 +4,7 @@ import { createContext, useState } from "react";
 export const CartContext = createContext()
 
 const ContextProvider = ({ children }) => {
+  // grouped state
   const [state, setState] = useState({
     count: 0,
     items: null,
@@ -12,26 +13,34 @@ const ContextProvider = ({ children }) => {
     cartProducts: [],
   })
 
-  const [count, setCount] = useState(0)
-  const [items, setItems] = useState(null);
-  const [loading, setLoading] = useState(true)
-  const [openCart, setOpenCart] = useState(false)
-  const [cartProducts, setCartProducts] = useState([])
-
-  const openCartDetail = () => setOpenCart(true)
-  const closeCartDetail = () => setOpenCart(false)
+  // Update state function
+  const updateState = (updates) => {
+    setState((prevState) => ({
+      ...prevState,
+      ...updates
+    }))
+  }
+// Function to open the cart detail
+  const openCartDetail = () => {
+    updateState({
+      openCart: true
+    })
+  }
+// Function to close the cart detail
+  
+  const closeCartDetail = () => {
+    updateState({
+      openCart: false
+    })
+  }
 
 
   return (
     <CartContext.Provider
       value={{
-        count,
-        setCount,
-        items,
-        setItems,
-        loading,
-        setLoading,
-        openCart,
+        state,
+        setState,
+        updateState,
         openCartDetail,
         closeCartDetail
       }}
