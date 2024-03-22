@@ -1,14 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Layout from '../../Components/Layout/Layout'
 import Card from '../../Components/Card/Card'
-import CartDetail from '../../Components/CartDetail/CartDetail'
 import { CartContext } from '../../Context/ContextProvider'
 
 
 const apiUrl = 'https://fakestoreapi.com/products'
 const Home = () => {
   const {state,updateState } = useContext(CartContext)
-  console.log(state.items);
   useEffect(() => {
     const fetchData = async () =>{
       try {
@@ -24,10 +22,6 @@ const Home = () => {
     fetchData();
   }, [])
 
-   console.log(state.items);
-
-   
-
   return (
     <Layout>
       Home
@@ -42,7 +36,6 @@ const Home = () => {
           ))
         }
       </section>
-      <CartDetail />
     </Layout>
   )
 }

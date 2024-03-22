@@ -9,11 +9,12 @@ import NavBar from '../../Components/NavBar.jsx';
 import './../../App.css'
 import ContextProvider from '../../Context/ContextProvider.jsx';
 import ProductDetail from '../ProductDetail/ProductDetail.jsx';
+import CartDetail from '../../Components/CartDetail/CartDetail.jsx';
 
 const AppRoutes = () => {
   let routes = useRoutes([
     { path: '/', element: <Home />, },
-    {path:'/ProductDetail/:id', element: <ProductDetail /> },
+    { path: '/ProductDetail/:id', element: <ProductDetail /> },
     { path: '/MyAccount', element: <MyAccount />, },
     { path: '/Orders', element: <Orders />, },
     { path: '/SingIn', element: <SingIn />, },
@@ -28,6 +29,7 @@ export const App = () => {
     <ContextProvider>
       <BrowserRouter>
         <NavBar />
+        <CartDetail />
         <AppRoutes />
       </BrowserRouter>
     </ContextProvider>

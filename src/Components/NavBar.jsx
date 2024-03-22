@@ -51,7 +51,6 @@ const NavBar = () => {
                                 onClick={() => {
                                     if (item.name === `🛒 ${state.count}`) {
                                         openCartDetail()
-                                        console.log('funciona');
                                     }
                                 }}
                             >
