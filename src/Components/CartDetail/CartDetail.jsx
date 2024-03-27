@@ -3,28 +3,38 @@ import { XMarkIcon } from '@heroicons/react/24/solid'
 import { CartContext } from '../../Context/ContextProvider'
 import CardCart from './CardCart'
 import { totalPrice } from '../../utils/reducer'
+import { useNavigate } from 'react-router-dom'
 
 const CartDetail = () => {
-  const { state, closeCartDetail,updateState } = useContext(CartContext)
+  const { state, closeCartDetail, updateState } = useContext(CartContext)
   let date = Date.now()
+  const navigate = useNavigate();
   const onCheckout = () => {
-    const today = new Date (date)
-    const orderToAdd = {
-      date: today,
-      products: state.cartProducts,
-      totalAmount: totalPrice(state.cartProducts).toFixed(2),
-      totalProducts:state.count,
+    if (state.cartProducts.length === 0) {
+      console.log('add some products');
+    } else {
+
+      const today = new Date(date)
+      const formattedDate = today.toString().slice(0, 24)
+      const orderToAdd = {
+        id: formattedDate,
+        products: state.cartProducts,
+        totalAmount: totalPrice(state.cartProducts).toFixed(2),
+        totalProducts: state.count,
+      }
+      updateState({
+        order: [orderToAdd],
+        cartProducts: [],
+        count: 0
+      })
+      closeCartDetail()
+      navigate('/MyOrder')
+      console.log(formattedDate);
     }
-    updateState({
-      order: [orderToAdd],
-      cartProducts: [],
-      count: 0
-    })
-    console.log(state.order);
   }
 
   return (
-    <aside className={`${state.openCart ? 'flex' : 'hidden'} flex-col w-full sm:w-80 lg:w-[500px] h-[100lvh] fixed top-10 sm:top-12 right-0 border-4 border-black rounded-lg backdrop-blur-2xl z-30`}>
+    <aside className={`${state.openCart ? 'flex' : 'hidden'} flex-col pb-20 w-full sm:w-80 lg:w-[500px] h-[100lvh] fixed top-10 sm:top-12 right-0 border-4 border-black rounded-lg backdrop-blur-2xl z-30`}>
       <div className='flex justify-between items-center p-6'>
         <h2 className='font-semibold text-2xl'>Cart details</h2>
         <p
@@ -42,7 +52,7 @@ const CartDetail = () => {
           ))
         }
       </div>
-      <section className='flex flex-col items-center mb-20 text-xl'>
+      <section className='flex flex-col items-center text-xl'>
         <p>Total: <span className=' font-semibold'>$ {totalPrice(state.cartProducts).toFixed(2)}</span></p>
         <button
           onClick={onCheckout}

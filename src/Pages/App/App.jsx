@@ -10,6 +10,7 @@ import './../../App.css'
 import ContextProvider from '../../Context/ContextProvider.jsx';
 import ProductDetail from '../ProductDetail/ProductDetail.jsx';
 import CartDetail from '../../Components/CartDetail/CartDetail.jsx';
+import MyOrder from '../Myorder/MyOrder.jsx';
 
 const AppRoutes = () => {
   let routes = useRoutes([
@@ -18,6 +19,8 @@ const AppRoutes = () => {
     { path: '/MyAccount', element: <MyAccount />, },
     { path: '/Orders', element: <Orders />, },
     { path: '/SingIn', element: <SingIn />, },
+    { path: '/MyOrder', element: <MyOrder />, },
+
     { path: '/*', element: <NotFound />, },
 
   ])
