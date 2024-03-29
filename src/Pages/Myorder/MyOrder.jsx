@@ -11,7 +11,7 @@ const MyOrder = () => {
         <Layout>
             <div className='flex flex-col w-full px-10 items-center'>
                 <h1 className='mb-4'>My Order</h1>
-                <section className="flex flex-col justify-center items-center sm:justify-around gap-4 sm:flex-row w-full lg:w-5/6 ">
+                <section className="flex flex-col justify-center items-center md:items-start sm:justify-around gap-4 sm:flex-row w-full lg:w-5/6 ">
                     <OrdersCards />
                     <CheckoutCard />
                 </section>

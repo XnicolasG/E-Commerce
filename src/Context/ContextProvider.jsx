@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createContext, useState } from "react";
 
 export const CartContext = createContext()
@@ -12,8 +12,26 @@ const ContextProvider = ({ children }) => {
     openCart: false,
     cartProducts: [],
     Order: [],
-    productDetail:[]
+    productDetail:[],
+    searchProduct: null
   })
+
+  const apiUrl = 'https://fakestoreapi.com/products'
+
+  useEffect(() => {
+    const fetchData = async () =>{
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        updateState({
+          items: data
+        })
+      } catch (error) {
+        throw new Error(error)
+      }
+    };
+    fetchData();
+  }, [])
 
   // Update state function
   const updateState = (updates) => {
