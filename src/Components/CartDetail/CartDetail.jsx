@@ -9,23 +9,28 @@ const CartDetail = () => {
   const { state, closeCartDetail, updateState } = useContext(CartContext)
   let date = Date.now()
   const navigate = useNavigate();
+  const totalPriceString = totalPrice(state.cartProducts);
+  const totalPriceNumber = parseFloat(totalPriceString); 
+  const formattedTotal = totalPriceNumber.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
   const onCheckout = () => {
     if (state.cartProducts.length === 0) {
       console.log('add some products');
     } else {
-
       const today = new Date(date)
       const formattedDate = today.toString().slice(0, 24)
+
       const orderToAdd = {
         id: formattedDate,
         products: state.cartProducts,
-        totalAmount: totalPrice(state.cartProducts).toFixed(2),
+        totalAmount: formattedTotal,
         totalProducts: state.count,
       }
+
       updateState({
-        order: [orderToAdd],
+        Order: [...state.Order, orderToAdd],
         cartProducts: [],
-        count: 0
+        count: 0,
       })
       closeCartDetail()
       navigate('/MyOrder')
@@ -53,7 +58,7 @@ const CartDetail = () => {
         }
       </div>
       <section className='flex flex-col items-center text-xl'>
-        <p>Total: <span className=' font-semibold'>$ {totalPrice(state.cartProducts).toFixed(2)}</span></p>
+        <p>Total: <span className=' font-semibold'>$ {formattedTotal}</span></p>
         <button
           onClick={onCheckout}
           className={`bg-black w-52 py-2 mt-2 font-bold  text-white rounded `}

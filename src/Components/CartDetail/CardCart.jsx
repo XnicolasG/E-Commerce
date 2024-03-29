@@ -1,6 +1,7 @@
 import { TrashIcon } from '@heroicons/react/24/solid'
 import React, { useContext } from 'react'
 import { CartContext } from '../../Context/ContextProvider'
+import '../../App.css'
 
 const CardCart = ({ id, price, image, title, quantity }) => {
     const { state, updateState } = useContext(CartContext)
@@ -54,11 +55,11 @@ const CardCart = ({ id, price, image, title, quantity }) => {
     return (
         <section className='mx-auto my-2 flex gap-x-4 justify-around items-center pr-2 w-[90%] md:w-[70%] bg-black text-white rounded-lg '>
             <main className='flex gap-x-4 w-[90%] md:w-80 bg-stone-200 text-black rounded-lg overflow-hidden'>
-                <div className='w-24 p-2 rounded-sm overflow-hidden'>
-                    <img className='w-full object-cover' src={image} alt="product" />
+                <div className='w-52 justify-center items-center p-2 rounded-sm overflow-hidden'>
+                    <img className='w-full'  src={image} alt="product" />
                 </div>
                 <section className='flex flex-col text-pretty'>
-                    <p>{title}</p>
+                    <p className='title max-h-20 overflow-auto '>{title}</p>
                     <p className='font-semibold text-lg'>$ {price}</p>
                     <p className='flex gap-x-1 justify-around items-center rounded-md border-2 bg-stone-300 overflow-hidden w-24 mb-2'>
                         <button

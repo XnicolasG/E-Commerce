@@ -12,6 +12,7 @@ const ContextProvider = ({ children }) => {
     openCart: false,
     cartProducts: [],
     Order: [],
+    productDetail:[]
   })
 
   // Update state function
