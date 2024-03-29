@@ -9,7 +9,6 @@ const NavBar = () => {
     const {state, openCartDetail} = useContext(CartContext)
     const navPaths1 = [
         { name: 'SmartShop', path: '/' },
-        { name: 'All', path: '/All' },
         { name: 'Clothes', path: '/Clothes' },
         { name: 'Electronics', path: '/Electronics' },
         { name: 'Fornitures', path: '/Fornitures' },
@@ -17,8 +16,6 @@ const NavBar = () => {
     ];
     const navPaths2 = [
         { name: 'Orders', path: '/Orders' },
-        { name: 'My Account', path: '/MyAccount' },
-        { name: 'Sing in', path: '/SingIn' },
         { name: `🛒 ${state.count}`, path: '/' },
     ]
     const activeStyle = ' font-semibold'

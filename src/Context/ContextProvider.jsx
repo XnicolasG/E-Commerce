@@ -13,7 +13,8 @@ const ContextProvider = ({ children }) => {
     cartProducts: [],
     Order: [],
     productDetail:[],
-    searchProduct: null
+    searchProduct: null,
+    filteredItems: null
   })
 
   const apiUrl = 'https://fakestoreapi.com/products'
@@ -40,6 +41,20 @@ const ContextProvider = ({ children }) => {
       ...updates
     }))
   }
+
+  // filter function
+  const filteredProducts = (items, searchProduct) =>{
+    return items?.filter(item => item.title.toLowerCase().includes(searchProduct.toLowerCase()))
+  }
+
+  useEffect(() =>{
+    if (state.searchProduct) {
+      updateState({
+        filteredItems: filteredProducts(state.items, state.searchProduct)
+      })
+    }
+  },[state.items, state.searchProduct])
+console.log(state.filteredItems);
   // Function to open the cart detail
   const openCartDetail = () => {
     updateState({
@@ -88,6 +103,7 @@ const ContextProvider = ({ children }) => {
         openCartDetail,
         closeCartDetail,
         onAddToCart,
+        filteredProducts,
       }}
     >
       {children}
