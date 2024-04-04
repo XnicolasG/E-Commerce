@@ -3,7 +3,6 @@ import { CartContext } from '../../Context/ContextProvider'
 
 const Search = () => {
     const {state, updateState} = useContext(CartContext)
-    console.log(state.searchProduct);
   return (
     <div>
         <input 

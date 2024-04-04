@@ -6,16 +6,16 @@ import { CartContext } from '../Context/ContextProvider';
 
 
 const NavBar = () => {
-    const {state, openCartDetail} = useContext(CartContext)
+    const {state, openCartDetail,updateState} = useContext(CartContext)
     const navPaths1 = [
-        { name: 'SmartShop', path: '/' },
-        { name: 'Clothes', path: '/Clothes' },
-        { name: 'Electronics', path: '/Electronics' },
-        { name: 'Fornitures', path: '/Fornitures' },
-        { name: 'Others', path: '/Others' },
+        { name: 'SmartShop', path: '/', }, 
+        { name: 'men', path: '/men', category: `men's clothing` }, //men's clothing
+        { name: 'jewelery', path: '/jewelery', category: 'jewelery' }, //jewelery
+        { name: 'Electronics', path: '/electronics', category: 'electronics' }, //electronics
+        { name: 'Women', path: '/women', category: `Women's clothing` }, //women's clothing
     ];
     const navPaths2 = [
-        { name: 'Orders', path: '/Orders' },
+        { name: 'Orders', path: '/MyOrder' },
         { name: `🛒 ${state.count}`, path: '/' },
     ]
     const activeStyle = ' font-semibold'
@@ -28,6 +28,9 @@ const NavBar = () => {
                             <NavLink
                                 key={item.name}
                                 to={item.path}
+                                onClick={() => updateState({
+                                    searchByCategory: item.category
+                                }) }
                                 className={({ isActive }) => isActive ? activeStyle : {} }
                             >
                                 {item.name}

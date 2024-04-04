@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { CartContext } from '../../Context/ContextProvider';
 import { ArrowLeftIcon } from '@heroicons/react/24/solid'
 
@@ -11,7 +11,10 @@ const ProductDetail = () => {
     const product = state.items?.find(item => item.id === productId);
     const { id, price, image, title, category, description, rating: { rate, count }, } = product
     console.log(product);
-
+    const navigate = useNavigate()
+    const handleClick = () =>{
+        navigate(-1);
+    }
     const cartAdd = () => {
         onAddToCart({ id, price, image, title, category });
     };
@@ -19,9 +22,9 @@ const ProductDetail = () => {
     return (
         <section className='flex flex-col mx-auto w-9/12 border-4 rounded-lg  mt-20 p-4 pb-8'>
             <div className='w-full'>
-                <Link to={'/'}>
+                <button type='button' onClick={handleClick} >
                     <ArrowLeftIcon className='w-6 h-6 text-black border-2 b rounded-full border-transparent hover:bg-black hover:text-white transition-all'></ArrowLeftIcon>
-                </Link>
+                </button>
                 <p className=' '>
                     Home {'>'} {category}
                 </p>

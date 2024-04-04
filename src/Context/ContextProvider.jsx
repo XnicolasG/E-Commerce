@@ -12,21 +12,23 @@ const ContextProvider = ({ children }) => {
     openCart: false,
     cartProducts: [],
     Order: [],
-    productDetail:[],
+    productDetail: [],
     searchProduct: null,
+    searchByCategory: null,
     filteredItems: null
   })
-
+  console.log(state.searchByCategory);
   const apiUrl = 'https://fakestoreapi.com/products'
 
   useEffect(() => {
-    const fetchData = async () =>{
+    const fetchData = async () => {
       try {
         const response = await fetch(apiUrl);
         const data = await response.json();
         updateState({
           items: data
         })
+        console.log(state.items);
       } catch (error) {
         throw new Error(error)
       }
@@ -43,18 +45,52 @@ const ContextProvider = ({ children }) => {
   }
 
   // filter function
-  const filteredProducts = (items, searchProduct) =>{
-    return items?.filter(item => item.title.toLowerCase().includes(searchProduct.toLowerCase()))
+  const filteredProducts = (items, searchProduct) => {
+    return items?.filter(item => 
+      item.title.toLowerCase().includes(searchProduct.toLowerCase())
+      );
+  }
+  // Filter category
+  const filteredCategory = (items, searchByCategory) => {
+    return items?.filter(item => item.category.toLowerCase().includes(searchByCategory.toLowerCase()))
   }
 
-  useEffect(() =>{
-    if (state.searchProduct) {
+  const filterBy = (searchType, items, searchproduct, searchByCategory) =>{
+    if (searchType === 'ByTitle'){
+      return filteredProducts(items, searchproduct)
+    }else if (searchType === 'ByCategory'){
+      return filteredCategory(items, searchByCategory)
+    }else if (searchType === 'ByBoth'){
+      return filteredCategory(items, searchByCategory).filter(item => item.title.toLowerCase().includes(state.searchProduct.toLowerCase()))
+    } else{
+      return state.items;
+    }
+  }
+
+  useEffect(() => {
+    if (state.searchProduct && !state.searchByCategory) {
       updateState({
-        filteredItems: filteredProducts(state.items, state.searchProduct)
+        filteredItems: filterBy('ByTitle',state.items, state.searchProduct, state.searchByCategory)
+      })
+    } 
+    if (!state.searchProduct && state.searchByCategory) {
+      updateState({
+        filteredItems: filterBy('ByCategory',state.items, state.searchProduct, state.searchByCategory)
       })
     }
-  },[state.items, state.searchProduct])
-console.log(state.filteredItems);
+    if (state.searchProduct && state.searchByCategory) {
+      updateState({
+        filteredItems: filterBy('ByBoth',state.items, state.searchProduct, state.searchByCategory)
+      })
+    }
+    if (!state.searchProduct && !state.searchByCategory) {
+      updateState({
+        filteredItems: filterBy(null,state.items, state.searchProduct, state.searchByCategory)
+      })
+    }
+  }, [state.items, state.searchProduct,state.searchByCategory]) 
+
+  console.log(state.filteredItems);
   // Function to open the cart detail
   const openCartDetail = () => {
     updateState({
@@ -112,3 +148,5 @@ console.log(state.filteredItems);
 }
 
 export default ContextProvider
+
+// cocntrato indefinido, 8 años mercado, creditos hipotecarios, plataforma directa con bancos, grupo aval, compensar 

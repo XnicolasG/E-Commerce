@@ -11,10 +11,16 @@ import ContextProvider from '../../Context/ContextProvider.jsx';
 import ProductDetail from '../ProductDetail/ProductDetail.jsx';
 import CartDetail from '../../Components/CartDetail/CartDetail.jsx';
 import MyOrder from '../Myorder/MyOrder.jsx';
+import Main from '../Main/Main.jsx';
 
 const AppRoutes = () => {
   let routes = useRoutes([
-    { path: '/', element: <Home />, },
+    { path: '/', element: <Main />, },
+    { path: '/products/:category', element: <Home />, },
+    { path: '/men', element: <Home />, },
+    { path: '/jewelery', element: <Home />, },
+    { path: '/electronics', element: <Home />, },
+    { path: '/women', element: <Home />, },
     { path: '/ProductDetail/:id', element: <ProductDetail /> },
     { path: '/MyAccount', element: <MyAccount />, },
     { path: '/Orders', element: <Orders />, },
