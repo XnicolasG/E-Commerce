@@ -51,7 +51,7 @@ const Main = () => {
                     <img className='w-full relative ' src={newBanner} alt='banner' />
                 </div>
             </section>
-            <section className='mt-4 w-[90%] flex '>
+            <section className='mt-4 w-[90%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4'>
                 {
                     banners.map((art) => (
                         <NavLink

@@ -46,7 +46,7 @@ const CartDetail = () => {
           onClick={closeCartDetail}
         > <XMarkIcon className='h-7 w-7 border-2 border-transparent cursor-pointer hover:border-2 hover:bg-black hover:text-white rounded-full transition-all duration-300'></XMarkIcon> </p>
       </div>
-      <div className='flex-1 overflow-auto'>
+      <div className='overflow-auto'>
         {
 
           state.cartProducts?.map((prod) => (
@@ -57,7 +57,7 @@ const CartDetail = () => {
           ))
         }
       </div>
-      <section className='flex flex-col items-center text-xl'>
+      <section className='flex flex-col items-center mt-6 text-xl'>
         <p>Total: <span className=' font-semibold'>$ {formattedTotal}</span></p>
         <button
           onClick={onCheckout}
