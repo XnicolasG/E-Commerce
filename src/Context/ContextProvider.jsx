@@ -149,4 +149,3 @@ const ContextProvider = ({ children }) => {
 
 export default ContextProvider
 
-// cocntrato indefinido, 8 años mercado, creditos hipotecarios, plataforma directa con bancos, grupo aval, compensar 

@@ -6,9 +6,9 @@ import { CartContext } from '../Context/ContextProvider';
 
 
 const NavBar = () => {
-    const {state, openCartDetail,updateState} = useContext(CartContext)
+    const { state, openCartDetail, updateState } = useContext(CartContext)
     const navPaths1 = [
-        { name: 'SmartShop', path: '/', }, 
+        { name: 'SmartShop', path: '/', },
         { name: 'men', path: '/men', category: `men's clothing` }, //men's clothing
         { name: 'jewelery', path: '/jewelery', category: 'jewelery' }, //jewelery
         { name: 'Electronics', path: '/electronics', category: 'electronics' }, //electronics
@@ -30,10 +30,13 @@ const NavBar = () => {
                                 to={item.path}
                                 onClick={() => updateState({
                                     searchByCategory: item.category
-                                }) }
-                                className={({ isActive }) => isActive ? activeStyle : {} }
+                                })}
+                                className={({ isActive }) => isActive ? activeStyle : {}}
                             >
-                                {item.name}
+                                <p>
+                                    {item.name}
+                                </p>
+
                             </NavLink>
 
                         ))
@@ -41,22 +44,31 @@ const NavBar = () => {
                 </li>
             </ul>
             <ul className='flex items-center'>
-                <li className='flex gap-3'>
+                <li className='flex gap-3 items-center'>
                     {
-                        navPaths2.map((item) => (
-                            <NavLink
-                                key={item.name}
-                                to={item.path}
-                                className={({ isActive }) => isActive ? activeStyle : {} }
-                                onClick={() => {
-                                    if (item.name === `🛒 ${state.count}`) {
-                                        openCartDetail()
-                                    }
-                                }}
-                            >
-                                {item.name}
-                            </NavLink>
-                        ))
+                        navPaths2.map((item) => {
+                            const isCartItem = item.name === `🛒 ${state.count}`;
+                            const cartWithItems = `${isCartItem && state.count > 0 ? 'bg-emerald-400 rounded-full ' : ''}p-1`;
+
+                            return (
+                                <NavLink
+                                    key={item.name}
+                                    to={item.path}
+                                    className={({ isActive }) => isActive ? activeStyle : {}}
+                                    onClick={() => {
+                                        if (item.name === `🛒 ${state.count}`) {
+                                            openCartDetail()
+                                        }
+                                    }}
+                                >
+                                    <p
+                                        className={cartWithItems}
+                                    >
+                                        {item.name}
+                                    </p>
+                                </NavLink>
+                            )
+                        })
                     }
                 </li>
             </ul>
