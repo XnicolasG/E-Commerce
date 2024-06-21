@@ -8,7 +8,6 @@ import Search from '../../Components/Search/Search'
 
 const Home = () => {
   const { state, updateState } = useContext(CartContext)
-
   const renderView = () => {
     if (state.filteredItems?.length === 0) {
       return (
@@ -17,7 +16,7 @@ const Home = () => {
         </div>
       );
     }
-  // (state.searchProduct ? state.filteredItems : state.items)
+    // (state.searchProduct ? state.filteredItems : state.items)
     return (
       <section className='grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center max-w-screen-2xl transition-all'>
         {state.filteredItems?.map((prod) => (
@@ -32,7 +31,7 @@ const Home = () => {
   return (
     <Layout>
       <Search />
-        {renderView()}
+      {renderView()}
     </Layout>
   )
 }

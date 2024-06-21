@@ -5,7 +5,9 @@ export const CartContext = createContext()
 
 const ContextProvider = ({ children }) => {
   // grouped state
-  const [state, setState] = useState({
+
+
+  const initialState = {
     count: 0,
     items: null,
     loading: true,
@@ -16,26 +18,32 @@ const ContextProvider = ({ children }) => {
     searchProduct: null,
     searchByCategory: null,
     filteredItems: null
-  })
-  console.log(state.searchByCategory);
+  }
+  const savedState = JSON.parse(localStorage.getItem('cartState')) || initialState;
+  const [state, setState] = useState(savedState);
+  console.log('states:', state.loading);
   const apiUrl = 'https://fakestoreapi.com/products'
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        updateState({
-          items: data
-        })
-        console.log(state.items);
-      } catch (error) {
-        throw new Error(error)
-      }
-    };
-    fetchData();
+    if (!state.items) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(apiUrl);
+          const data = await response.json();
+          updateState({
+            items: data
+          })
+          console.log(state.items);
+        } catch (error) {
+          throw new Error(error)
+        }
+      };
+      fetchData();
+    }
   }, [])
-
+  useEffect(() => {
+    localStorage.setItem('cartState', JSON.stringify(state));
+  }, [state])
   // Update state function
   const updateState = (updates) => {
     setState((prevState) => ({
@@ -46,23 +54,23 @@ const ContextProvider = ({ children }) => {
 
   // filter function
   const filteredProducts = (items, searchProduct) => {
-    return items?.filter(item => 
+    return items?.filter(item =>
       item.title.toLowerCase().includes(searchProduct.toLowerCase())
-      );
+    );
   }
   // Filter category
   const filteredCategory = (items, searchByCategory) => {
     return items?.filter(item => item.category.toLowerCase().includes(searchByCategory.toLowerCase()))
   }
 
-  const filterBy = (searchType, items, searchproduct, searchByCategory) =>{
-    if (searchType === 'ByTitle'){
+  const filterBy = (searchType, items, searchproduct, searchByCategory) => {
+    if (searchType === 'ByTitle') {
       return filteredProducts(items, searchproduct)
-    }else if (searchType === 'ByCategory'){
+    } else if (searchType === 'ByCategory') {
       return filteredCategory(items, searchByCategory)
-    }else if (searchType === 'ByBoth'){
+    } else if (searchType === 'ByBoth') {
       return filteredCategory(items, searchByCategory).filter(item => item.title.toLowerCase().includes(state.searchProduct.toLowerCase()))
-    } else{
+    } else {
       return state.items;
     }
   }
@@ -70,25 +78,25 @@ const ContextProvider = ({ children }) => {
   useEffect(() => {
     if (state.searchProduct && !state.searchByCategory) {
       updateState({
-        filteredItems: filterBy('ByTitle',state.items, state.searchProduct, state.searchByCategory)
+        filteredItems: filterBy('ByTitle', state.items, state.searchProduct, state.searchByCategory)
       })
-    } 
+    }
     if (!state.searchProduct && state.searchByCategory) {
       updateState({
-        filteredItems: filterBy('ByCategory',state.items, state.searchProduct, state.searchByCategory)
+        filteredItems: filterBy('ByCategory', state.items, state.searchProduct, state.searchByCategory)
       })
     }
     if (state.searchProduct && state.searchByCategory) {
       updateState({
-        filteredItems: filterBy('ByBoth',state.items, state.searchProduct, state.searchByCategory)
+        filteredItems: filterBy('ByBoth', state.items, state.searchProduct, state.searchByCategory)
       })
     }
     if (!state.searchProduct && !state.searchByCategory) {
       updateState({
-        filteredItems: filterBy(null,state.items, state.searchProduct, state.searchByCategory)
+        filteredItems: filterBy(null, state.items, state.searchProduct, state.searchByCategory)
       })
     }
-  }, [state.items, state.searchProduct,state.searchByCategory]) 
+  }, [state.items, state.searchProduct, state.searchByCategory])
 
   console.log(state.filteredItems);
   // Function to open the cart detail

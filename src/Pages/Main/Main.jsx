@@ -62,7 +62,7 @@ const Main = () => {
                             searchByCategory: art.category
                         }) }
                         >
-                            <div className='flex text-xs sm:text-md md:text-xl font-semibold text-white relative overflow-hidden'>
+                            <div className='flex text-xl sm:text-md md:text-lg font-semibold text-white relative overflow-hidden'>
                                 <img className='w-full hover:scale-110 transition-all' src={art.image} alt={art.name} />
                                 <p className='absolute bg-black/60 h-1/3 md:h-1/4 w-full bottom-1 px-2 '>{art.name}</p>
                             </div>
