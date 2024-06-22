@@ -12,6 +12,7 @@ import ProductDetail from '../ProductDetail/ProductDetail.jsx';
 import CartDetail from '../../Components/CartDetail/CartDetail.jsx';
 import MyOrder from '../Myorder/MyOrder.jsx';
 import Main from '../Main/Main.jsx';
+import Checkout from '../CheckOut/Checkout.jsx';
 
 const AppRoutes = () => {
   let routes = useRoutes([
@@ -26,6 +27,7 @@ const AppRoutes = () => {
     { path: '/Orders', element: <Orders />, },
     { path: '/SingIn', element: <SingIn />, },
     { path: '/MyOrder', element: <MyOrder />, },
+    {path: '/Checkout', element: <Checkout /> },
 
     { path: '/*', element: <NotFound />, },
 
