@@ -3,7 +3,38 @@
 @tailwind utilities;
 
 
-body{
+body {
     background-color: rgba(234, 244, 255, 0.521);
     font-family: 'Lexend Variable', sans-serif;
- }
+}
+
+.inputStyle {
+    @apply p-2 border-2 border-gray-300 rounded
+}
+
+.credit-card {
+    @apply w-80 h-44 rounded relative transition-transform duration-500;
+}
+
+.credit-card_front,
+.credit-card_back {
+    @apply w-full h-full absolute flex flex-col justify-center items-center border border-black rounded-lg p-4 box-border;
+    backface-visibility: hidden;
+    transition: transform 0.6s ease-in-out;
+}
+
+.credit-card_front {
+    @apply bg-white
+}
+
+.credit-card_back {
+    @apply bg-gray-200 ;
+    transform: rotateY(180deg)
+}
+
+.credit-card.flipped .credit-card_front {
+    transform: rotateY(180deg)
+}
+.credit-card.flipped .credit-card_back {
+    transform: rotateY(0deg)
+}
