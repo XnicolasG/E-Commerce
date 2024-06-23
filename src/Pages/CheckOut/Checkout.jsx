@@ -9,11 +9,19 @@ const Checkout = () => {
         name: '',
         focus: '',
     });
+
+    const formatCreditCardNumber = (value) => {
+        const cleaned = value.replace(/\D+/g, '').slice(0, 16);
+        const formatted = cleaned.replace(/(.{4})/g, '$1 ').trim();
+        return formatted;
+    };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target
+        const formattedValue = name === 'number' ? formatCreditCardNumber(value) : value;
         setState((prevState) => ({
             ...prevState,
-            [name]: value
+            [name]: formattedValue
         }))
     };
     const handleInputFocus = (e) => {
@@ -89,6 +97,7 @@ const Checkout = () => {
                         value={state.cvc}
                         onChange={handleInputChange}
                         onFocus={handleInputFocus}
+
                     />
                 </div>
                 <button

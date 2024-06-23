@@ -33,7 +33,7 @@ const CartDetail = () => {
         count: 0,
       })
       closeCartDetail()
-      navigate('/MyOrder')
+      navigate('/Checkout')
       console.log(formattedDate);
     }
   }
