@@ -11,17 +11,31 @@ const Checkout = () => {
     });
 
     const formatCreditCardNumber = (value) => {
-        const cleaned = value.replace(/\D+/g, '').slice(0, 16);
+        // Limpia el valor eliminando cualquier carácter que no sea un dígito
+        const cleaned = value.replace(/\D+/g, '');
+    
+        // Formatea el número agrupando los dígitos en grupos de 4
         const formatted = cleaned.replace(/(.{4})/g, '$1 ').trim();
-        return formatted;
+    
+        // Asegúrate de que no exceda los 16 dígitos
+        return formatted.slice(0, 16);
     };
 
+    const formatExpirationDate = (value) => {
+        const cleaned = value.replace(/\D+/g, '');
+        const month = cleaned.slice(0, 2);
+        const year = cleaned.slice(2, 4);
+        const fullDate = `${month}/${year}`
+        return fullDate.slice(0, 4)
+    }
     const handleInputChange = (e) => {
         const { name, value } = e.target
         const formattedValue = name === 'number' ? formatCreditCardNumber(value) : value;
+        const formattedDate = name === 'expiry' ? formatExpirationDate(value) : value;
         setState((prevState) => ({
             ...prevState,
-            [name]: formattedValue
+            //[name] los brackets en este caso detectan dinamicamente el valor de entrada que esta condicionada en el evento
+            [name]: value
         }))
     };
     const handleInputFocus = (e) => {
@@ -74,6 +88,16 @@ const Checkout = () => {
                             value={data.value}
                             onChange={handleInputChange}
                             onFocus={handleInputFocus}
+                            onInput={(e) => {
+                                if(data.name === 'number'){
+                                    if (e.target.value.length > 16) {
+                                        e.target.value = e.target.value.slice(0, 16);
+                                    }
+                                }else if (e.target.value.length > 25) {
+                                    e.target.value = e.target.value.slice(0, 25);
+                                }
+                            }}
+                            required
                         />
                     ))
                 }
@@ -88,6 +112,8 @@ const Checkout = () => {
                         value={state.expiry}
                         onChange={handleInputChange}
                         onFocus={handleInputFocus}
+                        required
+
                     />
                     <input
                         className='w-1/3 inputStyle'
@@ -97,7 +123,12 @@ const Checkout = () => {
                         value={state.cvc}
                         onChange={handleInputChange}
                         onFocus={handleInputFocus}
-
+                        onInput={(e) => {
+                            if (e.target.value.length > 3) {
+                                e.target.value = e.target.value.slice(0, 3);
+                            }
+                        }}
+                        required
                     />
                 </div>
                 <button
