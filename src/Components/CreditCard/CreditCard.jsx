@@ -2,7 +2,8 @@ import React from 'react'
 
 export const CreditCard = ({
     number,
-    expiry,
+    expiryMonth,
+    expiryYear,
     cvc,
     name,
     focused }) => {
@@ -18,7 +19,11 @@ export const CreditCard = ({
         >
             <div className='credit-card_front'>
                 <p>{maskCreditCardNumber(number)}</p>
-                <p>{!expiry ? 'MM/AA' : expiry}</p>
+                <div className='flex'>
+                <p>{!expiryMonth ? 'MM' : expiryMonth}</p>
+                <p>/</p>
+                <p>{!expiryYear ? 'AA' : expiryYear}</p>
+                </div>
                 <p>{!name ? 'Your Name' : name}</p>
             </div>
 

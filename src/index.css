@@ -9,8 +9,15 @@ body {
 }
 
 .inputStyle {
-    @apply p-2 border-2 border-gray-300 rounded
-}
+    @apply p-2 border-2 border-gray-300 rounded;
+    -moz-appearance: textfield;
+  }
+  .inputStyle::-webkit-outer-spin-button,
+  .inputStyle::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
 
 .credit-card {
     @apply w-80 h-44 rounded relative transition-transform duration-500;

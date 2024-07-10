@@ -4,11 +4,16 @@ import { CreditCard } from '../../Components/CreditCard/CreditCard';
 const Checkout = () => {
     const [state, setState] = useState({
         number: '',
-        expiry: '',
+        expiryMonth: '',
+        expiryYear: '',
         cvc: '',
         name: '',
         focus: '',
+        error: ''
     });
+    const CARD_LENGTH = 16;
+    const NAME_LENGTH = 2;
+    
 
     const formatCreditCardNumber = (value) => {
         // Limpia el valor eliminando cualquier carácter que no sea un dígito
@@ -21,27 +26,30 @@ const Checkout = () => {
         return formatted.slice(0, 16);
     };
 
-    const formatExpirationDate = (value) => {
-        const cleaned = value.replace(/\D/g, '');
 
-        // Toma solo los primeros 4 dígitos
-        const limited = cleaned.slice(0, 4);
-
-        // Si hay más de 2 dígitos, inserta una barra después del segundo dígito
-        if (limited.length > 2) {
-            return limited.slice(0, 2) + '/' + limited.slice(2);
+    const currentYear = new Date().getFullYear() % 100;
+    const validateExpiryDate = (month, year) => {
+        const currentMonth = new Date().getMonth() + 1;
+        const monthValue = parseInt(month, 10);
+        const yearValue = parseInt(year, 10);
+        console.log({ currentMonth, monthValue, currentYear, yearValue });
+        if (yearValue < currentYear || (yearValue === currentYear && monthValue < currentMonth)) {
+            console.warn('check the info');
+            setState((prevState) => ({
+                ...prevState,
+                error: 'Please check the expiry info !'
+            }));
         }
 
-        // Si no, devuelve lo que se ha ingresado hasta ahora
-        return limited;
-    }
+        console.log(state.error);
+        return '';
+    };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target
         let formattedValue = value;
         if (name === 'number') {
             formattedValue = formatCreditCardNumber(value);
-        } else if (name === 'expiry') {
-            formattedValue = formatExpirationDate(value);
         }
         setState((prevState) => ({
             ...prevState,
@@ -49,6 +57,13 @@ const Checkout = () => {
             [name]: value
         }))
     };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        validateExpiryDate(state.expiryMonth, state.expiryYear)
+        console.log('submit', state.number.length);
+        
+    }
     const handleInputFocus = (e) => {
         setState((prevState) => ({
             ...prevState,
@@ -61,31 +76,35 @@ const Checkout = () => {
             placeholder: 'Card Number',
             type: 'number',
             value: state.number,
-            class: 'inputStyle w-1/2'
+            class: 'inputStyle w-1/2',
+            min: CARD_LENGTH
         },
         {
             name: 'name',
             placeholder: 'Your Name',
             type: 'text',
             value: state.name,
-            class: 'inputStyle w-1/2'
+            class: 'inputStyle w-1/2',
+            min: NAME_LENGTH
 
         },
 
     ]
     return (
         <section
-            className='flex flex-col items-center py-4 m-20 mx-auto w-1/2 border border-black'
+            className='flex flex-col items-center py-4 m-20 mx-auto w-[90%] md:w-1/2 border border-black'
         >
             <CreditCard
                 className='border border-black'
                 number={state.number}
-                expiry={state.expiry}
+                expiryMonth={state.expiryMonth}
+                expiryYear={state.expiryYear}
                 cvc={state.cvc}
                 name={state.name}
                 focused={state.focus}
             />
             <form
+                onSubmit={handleSubmit}
                 className='flex flex-col items-center py-4 mt-4 gap-4 w-full '
             >
                 {
@@ -109,34 +128,65 @@ const Checkout = () => {
                                 }
                             }}
                             required
+                            {...(data.type === 'text') ? { minLength: data.min } :
+                                data.type === 'number' ? { min: data.min } : {}}
                         />
                     ))
                 }
                 <div
                     className='flex justify-between w-1/2'
                 >
+                    <div className="w-1/2 flex items-center gap-x-3 ">
+                        <select
+                            className='w-1/2 text-center inputStyle'
+                            type='number'
+                            name='expiryMonth'
+                            placeholder='MM'
+                            value={state.expiryMonth}
+                            onChange={handleInputChange}
+                            onFocus={handleInputFocus}
+                            required
+                        >
+                            <option  value="">-</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                        <p className='text-3xl  my-auto font-extralight text-gray-400'>/</p>
+                        <select
+                            className='w-1/2 text-center inputStyle'
+                            type='number'
+                            name='expiryYear'
+                            placeholder='AA'
+                            value={state.expiryYear}
+                            onChange={handleInputChange}
+                            onFocus={handleInputFocus}
+                            required
+                        >
+                            <option value="">-</option>
+                            {Array.from({ length: 10 }, (_, i) => currentYear + i).map(year => (
+                                <option key={year} value={year % 100}>
+                                    {year}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                     <input
-                        className='w-1/3 inputStyle'
-                        type='number'
-                        name='expiry'
-                        placeholder='MM/AA'
-                        value={state.expiry}
-                        onChange={handleInputChange}
-                        onFocus={handleInputFocus}
-                        onInput={(e) => {
-                            if (e.target.value.length > 5) {
-                                e.target.value = e.target.value.slice(0, 5);
-                            }
-                        }}
-                        required
-
-                    />
-                    <input
-                        className='w-1/3 inputStyle'
+                        className='w-1/4 text-center inputStyle'
                         name='cvc'
                         placeholder='CVC'
                         type='number'
                         value={state.cvc}
+                        min={3}
                         onChange={handleInputChange}
                         onFocus={handleInputFocus}
                         onInput={(e) => {
@@ -148,7 +198,7 @@ const Checkout = () => {
                     />
                 </div>
                 <button
-                    className='w-36 p-2 mt-4 bg-emerald-400 rounded text-white hover:scale-110 cursor-pointer transition-all'
+                    className='w-36 p-2 mt-4 bg-emerald-400 rounded text-white hover:scale-110 hover:bg-emerald-500 cursor-pointer transition-all'
                 >
                     PAY
                 </button>
@@ -158,3 +208,5 @@ const Checkout = () => {
 }
 
 export default Checkout
+
+// 24070932891215 radicado cancelación seguro sura
