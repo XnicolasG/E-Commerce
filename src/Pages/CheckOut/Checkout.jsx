@@ -121,7 +121,7 @@ const Checkout = () => {
     ]
     return (
         <section
-            className=' flex flex-col items-center py-4 m-20 mx-auto w-[90%] md:w-[80%] lg:w-1/2 border border-black'
+            className=' flex flex-col items-center py-4 m-20 mx-auto w-[90%] md:w-[80%] lg:w-[70%] border border-black'
         >
             <CreditCard
                 className='  border border-black'
@@ -152,8 +152,8 @@ const Checkout = () => {
                                     if (e.target.value.length > 16) {
                                         e.target.value = e.target.value.slice(0, 16);
                                     }
-                                } else if (e.target.value.length > 25) {
-                                    e.target.value = e.target.value.slice(0, 25);
+                                } else if (e.target.value.length > 22) {
+                                    e.target.value = e.target.value.slice(0, 22);
                                 }
                             }}
                             required
