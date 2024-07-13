@@ -18,14 +18,38 @@ const Checkout = () => {
     const formatCreditCardNumber = (value) => {
         // Limpia el valor eliminando cualquier carácter que no sea un dígito
         const cleaned = value.replace(/\D+/g, '');
-
         // Formatea el número agrupando los dígitos en grupos de 4
         const formatted = cleaned.replace(/(.{4})/g, '$1 ').trim();
-
         // Asegúrate de que no exceda los 16 dígitos
         return formatted.slice(0, 16);
     };
+    const validateCardNumber = (value) => {
+        if (value.length < 16) {
+            setState((prevState) => ({
+                ...prevState,
+                error: 'Please check the card number details!'
+            }))
+        } else {
+            setState((prevState) => ({
+                ...prevState,
+                error: ''
+            }))
+        }
 
+    };
+    const validateCvc = (value) => {
+        if (value.length < 3) {
+            setState((prevState) => ({
+                ...prevState,
+                error: 'Please check the cvc number '
+            }))
+        } else {
+            setState((prevState) => ({
+                ...prevState,
+                error: ''
+            }))
+        }
+    }
 
     const currentYear = new Date().getFullYear() % 100;
     const validateExpiryDate = (month, year) => {
@@ -34,14 +58,17 @@ const Checkout = () => {
         const yearValue = parseInt(year, 10);
         console.log({ currentMonth, monthValue, currentYear, yearValue });
         if (yearValue < currentYear || (yearValue === currentYear && monthValue < currentMonth)) {
-            console.warn('check the info');
+            console.warn('check the info, date is expired');
             setState((prevState) => ({
                 ...prevState,
                 error: 'Please check the expiry info !'
             }));
+        }else {
+            setState((prevState) => ({
+                ...prevState,
+                error: ''
+            }))
         }
-
-        console.log(state.error);
         return '';
     };
 
@@ -60,8 +87,10 @@ const Checkout = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        validateExpiryDate(state.expiryMonth, state.expiryYear)
-        console.log('submit', state.number.length);
+        validateExpiryDate(state.expiryMonth, state.expiryYear);
+        validateCardNumber(state.number)
+        validateCvc(state.cvc);
+        console.log('submit', state.error);
         
     }
     const handleInputFocus = (e) => {
@@ -92,10 +121,10 @@ const Checkout = () => {
     ]
     return (
         <section
-            className='flex flex-col items-center py-4 m-20 mx-auto w-[90%] md:w-1/2 border border-black'
+            className=' flex flex-col items-center py-4 m-20 mx-auto w-[90%] md:w-[80%] lg:w-1/2 border border-black'
         >
             <CreditCard
-                className='border border-black'
+                className='  border border-black'
                 number={state.number}
                 expiryMonth={state.expiryMonth}
                 expiryYear={state.expiryYear}
@@ -105,7 +134,7 @@ const Checkout = () => {
             />
             <form
                 onSubmit={handleSubmit}
-                className='flex flex-col items-center py-4 mt-4 gap-4 w-full '
+                className=' flex flex-col items-center py-4 mt-4 gap-4 w-full '
             >
                 {
                     formInput.map((data, index) => (
@@ -197,8 +226,11 @@ const Checkout = () => {
                         required
                     />
                 </div>
+
+                    <p className={`text-xs ${state.error ? 'text-red-600' : 'text-transparent'} transition-all `}> {state.error}</p>
+                
                 <button
-                    className='w-36 p-2 mt-4 bg-emerald-400 rounded text-white hover:scale-110 hover:bg-emerald-500 cursor-pointer transition-all'
+                    className='w-36 p-2 mt-1 bg-emerald-400 rounded text-white hover:scale-110 hover:bg-emerald-500 cursor-pointer transition-all'
                 >
                     PAY
                 </button>
