@@ -1,5 +1,7 @@
 import React from 'react'
 import { MasterCard } from '../../img/svg/MasterCard';
+import { CreditCardChip } from '../../img/svg/CreditCardChip';
+import { CreditCardSignal } from '../../img/svg/CreditCardSignal';
 
 export const CreditCard = ({
     number,
@@ -34,8 +36,8 @@ export const CreditCard = ({
                     </div>
                 </div>
                 <aside className=' flex flex-col justify-between items-center p-2  bg-gradient-to-br from-amber-300 to-indigo-600 col-start-2 w-full h-full'>
-                    <div>
-                        
+                    <div className='pt-2'>
+                        <CreditCardSignal  className=' rotate-90' />
                     </div>
                     <MasterCard className={`size-10`} />
                 </aside>
