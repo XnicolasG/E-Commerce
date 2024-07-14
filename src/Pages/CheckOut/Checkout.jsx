@@ -165,7 +165,7 @@ const Checkout = () => {
                 <div
                     className='flex justify-between w-1/2'
                 >
-                    <div className="w-1/2 flex items-center gap-x-3 ">
+                    <div className="w-2/3 flex items-center gap-x-3 ">
                         <select
                             className='w-1/2 text-center inputStyle'
                             type='number'

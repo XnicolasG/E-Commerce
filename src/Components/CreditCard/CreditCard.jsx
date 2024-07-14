@@ -33,7 +33,10 @@ export const CreditCard = ({
                         <p className=''>{!name ? 'Your Name' : name}</p>
                     </div>
                 </div>
-                <aside className=' flex flex-col justify-end items-end p-2  bg-gradient-to-br from-amber-300 to-indigo-600 col-start-2 w-full h-full'>
+                <aside className=' flex flex-col justify-between items-center p-2  bg-gradient-to-br from-amber-300 to-indigo-600 col-start-2 w-full h-full'>
+                    <div>
+                        
+                    </div>
                     <MasterCard className={`size-10`} />
                 </aside>
             </section>
