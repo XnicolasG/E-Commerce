@@ -33,8 +33,6 @@ body {
 
 .credit-card_front {
     @apply bg-purple-900;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
 }
 
 .credit-card_back {
@@ -49,9 +47,54 @@ body {
 .credit-card.flipped .credit-card_back {
     transform: rotateY(0deg)
 }
+/* --------- VISA -------- */
+.visaFront{
+  @apply bg-slate-200;
+  display: grid;
+  grid-template-columns: 2fr 1fr
+}
+.form{
+  @apply absolute w-16 h-16 backdrop-blur-sm;
+  border-radius: 18px 18px 18px 18px ;
+}
+.form1 {
+  /* @apply ; */
+  left: 10%;
+  top: 10%;
+  animation: 6s toRotate ease-in-out infinite;
+}
+.form2 {
+  @apply rotate-45;
+  right: -15%;
+  bottom: 10px;
+  animation: 6s toRotate ease-in-out infinite;
+ }
+ .visaLogo{
+  animation: fromleft 2s ease-out ;
+ }
+ @keyframes fromleft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100%{
+    opacity: 1;
+    transform: translateX(0);
+  }
+ }
+ @keyframes toRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 /*---------- Master Card ----------*/
 .masterCardFront{
   @apply bg-gray-800;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
 }
 .masterCardBack{
   @apply bg-gradient-to-br from-amber-300 to-indigo-600
@@ -61,10 +104,9 @@ body {
 }
 
 .circle1 {
-    /* top: 20%; */
+    @apply rotate-45;
     left: 30%;
     animation: floatToRigth 6s ease-in-out infinite .5s;
-
 }
 .circle2 {
     /* top: 20%; */

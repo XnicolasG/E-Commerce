@@ -36,7 +36,7 @@ export const CreditCard = ({
         <section
             className={`credit-card ${focused === 'cvc' ? 'flipped' : ''}`}
         >
-            <MasterCardComponent
+            <VisaComponent
             number={number} 
             expiryMonth={expiryMonth} 
             expiryYear={expiryYear} 
