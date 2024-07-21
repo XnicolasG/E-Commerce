@@ -1,14 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { CreditCardSignal } from '../../img/svg/CreditCardSignal'
 import { VisaLogo } from '../../img/svg/VisaLogo'
-import cactus from '../../img/cactus.png'
+import gruya1 from '../../img/gruya1.png'
+import gruya2 from '../../img/gruya2.png'
+import gruya3 from '../../img/gruya3.png'
+import gruya4 from '../../img/gruya4.png'
 
 export const VisaComponent = ({ maskCreditCardNumber, number, expiryMonth, expiryYear, name }) => {
+ const images = [gruya1,gruya2,gruya3,gruya4];
+ const [activeImg, setActiveImg] = useState(0);
+
+ useEffect(() => {
+  const interval = setInterval(() => {
+    setActiveImg((prevImg) => (prevImg + 1) % images.length);
+  },4000)
+  return () => clearInterval(interval)
+ },[images.length])
+ 
   return (
     <section className='credit-card_front visaFront shadow-md shadow-black/60' aria-label="Credit Card Information">
       <div className=' relative  text-stone-800 col-start-1 h-full '>
-        <span className="form form1 bg-rose-500/90"></span>
-        <span className="form form2 bg-cyan-500/90"></span>
+        <span className="form form1 bg-stone-200/90"></span>
+        <span className="form form2 bg-yellow-300/90"></span>
         <div className='backdrop-blur-sm flex flex-col justify-between p-3 w-full  h-full'>
           <VisaLogo className={`visaLogo size-12`} />
           <div>
@@ -23,22 +36,19 @@ export const VisaComponent = ({ maskCreditCardNumber, number, expiryMonth, expir
           </div>
         </div>
       </div>
-      <aside className='backdrop-blur-sm flex flex-col justify-between items-center p-2  col-start-2 w-full h-full'>
+      <aside className='relative backdrop-blur-sm flex flex-col justify-between items-center p-2  col-start-2 w-full h-full'>
         <div className='pt-2'>
           <CreditCardSignal className=' rotate-90' />
         </div>
-        <img className='w-full' src={cactus} alt="cactus" />
+        {images.map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt={`image${index + 1}`}
+            className={`fade-image ${index === activeImg ? 'active' : ''}`}
+          />
+        ))}
       </aside>
     </section>
   )
 }
-{/* <aside className='backdrop-blur-md flex  justify-between items-center p-2  w-full h-full'>
-  <div className='pt-2'>
-  </div>
-</aside>
-<div className=' relative text-stone-800 border border-black w-full h-full '>
-<span className="circle circle1 bg-red-600/90"></span>
-<span className="circle circle2 bg-yellow-500/90"></span>
-<div className='backdrop-blur-md flex flex-col justify-end p-3 w-full  h-full'>
-</div>
-</div> */}
