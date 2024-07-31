@@ -60,7 +60,7 @@ body {
   /* @apply ; */
   left: 10%;
   top: 10%;
-  animation: 4.5s toRotate ease-in-out infinite;
+  animation: 4s toRotate ease-in-out infinite;
 }
 .form2 {
   @apply rotate-45;
