@@ -51,7 +51,7 @@ body {
 .visaFront{
   @apply bg-gradient-to-r from-sky-600 to-sky-300;
   display: grid;
-  grid-template-columns: 1fr 1fr
+  grid-template-columns: 2fr 1fr
 }
 .form{
   @apply absolute w-16 h-16 backdrop-blur-sm;
@@ -73,7 +73,7 @@ body {
  }
 
  .fade-image {
-  @apply absolute top-1/3 opacity-0  w-2/3 h-2/3 transition-opacity duration-1000 ease-in-out;
+  @apply absolute top-1/3 opacity-0  w-full  transition-opacity duration-1000 ease-in-out;
 }
 .fade-image.active {
   opacity: 1;

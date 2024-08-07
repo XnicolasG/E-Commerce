@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { CreditCardSignal } from '../../img/svg/CreditCardSignal'
 import { VisaLogo } from '../../img/svg/VisaLogo'
 import gruya1 from '../../img/gruya1.png'
@@ -40,14 +40,17 @@ export const VisaComponent = ({ maskCreditCardNumber, number, expiryMonth, expir
         <div className='pt-2'>
           <CreditCardSignal className=' rotate-90' />
         </div>
+        <div className='absolute top-1/2 w-full'>
+
         {images.map((img, index) => (
           <img
-            key={index}
-            src={img}
-            alt={`image${index + 1}`}
-            className={`fade-image ${index === activeImg ? 'active' : ''}`}
+          key={index}
+          src={img}
+          alt={`image${index + 1}`}
+          className={`fade-image ${index === activeImg ? 'active' : ''}`}
           />
         ))}
+        </div>
       </aside>
     </section>
   )
