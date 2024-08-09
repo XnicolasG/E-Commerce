@@ -1,7 +1,3 @@
-import React from 'react'
-import { MasterCard } from '../../img/svg/MasterCard';
-import { CreditCardChip } from '../../img/svg/CreditCardChip';
-import { CreditCardSignal } from '../../img/svg/CreditCardSignal';
 import { GetCardType } from '../../utils/GetCardTypes';
 import { MasterCardComponent } from './MasterCard';
 import { DefaultComponent } from './DefaultComponent';
@@ -21,27 +17,26 @@ export const CreditCard = ({
         return formatted;
     };
     const cardType = GetCardType(number);
-    let cardComponent;
+    let CardComponent;
     switch (cardType) {
         case 'visa':
-            cardComponent = VisaComponent;
+            CardComponent = VisaComponent;
             console.log('visa');
             break;
         case 'mastercard':
-            cardComponent = MasterCardComponent;
+            CardComponent = MasterCardComponent;
             console.log('MC');
-
+            break;
         default:
-            cardComponent = DefaultComponent;
+            CardComponent = DefaultComponent;
             console.log('DEf');
-
             break;
     }
     return (
         <section
-            className={`credit-card ${focused === 'cvc' ? 'flipped' : ''}`}
+            className={`credit-card ${focused === 'cvc' ? 'flipped' : ''} hover:-translate-y-2`}
         >
-            <VisaComponent
+            <CardComponent
             number={number} 
             expiryMonth={expiryMonth} 
             expiryYear={expiryYear} 

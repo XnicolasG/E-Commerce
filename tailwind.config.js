@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage:{
+        'monsters': "url('/src/img/Monsters.png')",
+      }
+    },
     atterns: {
       opacities: {
           100: "1",

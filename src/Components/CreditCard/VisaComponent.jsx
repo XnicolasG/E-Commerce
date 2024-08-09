@@ -1,21 +1,14 @@
-import  { useEffect, useState } from 'react'
 import { CreditCardSignal } from '../../img/svg/CreditCardSignal'
 import { VisaLogo } from '../../img/svg/VisaLogo'
 import gruya1 from '../../img/gruya1.png'
 import gruya2 from '../../img/gruya2.png'
 import gruya3 from '../../img/gruya3.png'
 import gruya4 from '../../img/gruya4.png'
+import { useImageSlider } from '../../Hooks/CreditCard/useImageSlider'
 
 export const VisaComponent = ({ maskCreditCardNumber, number, expiryMonth, expiryYear, name }) => {
  const images = [gruya1,gruya2,gruya3,gruya4];
- const [activeImg, setActiveImg] = useState(0);
-
- useEffect(() => {
-  const interval = setInterval(() => {
-    setActiveImg((prevImg) => (prevImg + 1) % images.length);
-  },4000)
-  return () => clearInterval(interval)
- },[images.length])
+ const {activeImg} = useImageSlider({images})
  
   return (
     <section className='credit-card_front visaFront shadow-md shadow-black/60' aria-label="Credit Card Information">

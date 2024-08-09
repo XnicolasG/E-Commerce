@@ -102,6 +102,13 @@ body {
     border-radius: 18px;
   }
 }
+/* ---------Default Card -------- */
+.defaultFront{
+  @apply bg-monsters bg-cover;
+}
+.defaultBack{
+  @apply bg-gradient-to-b from-transparent to-black/60;
+}
 /*---------- Master Card ----------*/
 .masterCardFront{
   @apply bg-gray-800;

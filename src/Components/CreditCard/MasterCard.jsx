@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { MasterCard } from '../../img/svg/MasterCard'
 import { CreditCardSignal } from '../../img/svg/CreditCardSignal'
 
