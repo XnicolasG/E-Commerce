@@ -35,7 +35,6 @@ const Checkout = () => {
                 error: ''
             }))
         }
-
     };
     const validateCvc = (value) => {
         if (value.length < 3) {
@@ -52,6 +51,7 @@ const Checkout = () => {
     }
 
     const currentYear = new Date().getFullYear() % 100;
+    
     const validateExpiryDate = (month, year) => {
         const currentMonth = new Date().getMonth() + 1;
         const monthValue = parseInt(month, 10);
@@ -105,7 +105,7 @@ const Checkout = () => {
             placeholder: 'Card Number',
             type: 'number',
             value: state.number,
-            class: 'inputStyle w-1/2',
+            class: 'inputStyle w-2/3 md:w-1/2',
             min: CARD_LENGTH
         },
         {
@@ -113,7 +113,7 @@ const Checkout = () => {
             placeholder: 'Your Name',
             type: 'text',
             value: state.name,
-            class: 'inputStyle w-1/2',
+            class: 'inputStyle w-2/3 md:w-1/2',
             min: NAME_LENGTH
 
         },
@@ -121,10 +121,10 @@ const Checkout = () => {
     ]
     return (
         <section
-            className=' flex flex-col items-center py-4 m-20 mx-auto w-[90%] md:w-[80%] lg:w-[70%] border border-black'
+            className=' flex flex-col items-center py-4 m-20 mx-auto w-[90%] md:w-[80%] lg:w-[70%] '
         >
             <CreditCard
-                className='  border border-black'
+                className=' '
                 number={state.number}
                 expiryMonth={state.expiryMonth}
                 expiryYear={state.expiryYear}
@@ -134,7 +134,7 @@ const Checkout = () => {
             />
             <form
                 onSubmit={handleSubmit}
-                className=' flex flex-col items-center py-4 mt-4 gap-4 w-full '
+                className=' flex flex-col items-center py-4 mt-4 gap-4 w-full  '
             >
                 {
                     formInput.map((data, index) => (
@@ -163,7 +163,7 @@ const Checkout = () => {
                     ))
                 }
                 <div
-                    className='flex justify-between w-1/2'
+                    className='flex justify-between w-2/3 md:w-1/2'
                 >
                     <div className="w-2/3 flex items-center gap-x-3 ">
                         <select
@@ -240,5 +240,3 @@ const Checkout = () => {
 }
 
 export default Checkout
-
-// 24070932891215 radicado cancelación seguro sura
