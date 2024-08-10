@@ -1,36 +1,45 @@
 import { useState } from "react";
+import { validateFieldLength } from "../../utils/checkout/validateFieldLength";
 
-export const useCreditCardValidation = () => {
-    const [state, setState] = useState({
+
+
+export const useCreditCardValidation = ({currentYear}) => {
+    const [validationErrors, setValidationsErrors] = useState({
         cardNumberError: "",
-        expirationDateError: "",
+        expirationError: "",
         cvcError: "",
     })
     const validateCardNumber = (value) => {
-        if (value.length < 16) {
-            setState((prevState) => ({
-                ...prevState,
-                cardNumberError: 'Please check the card number details!'
-            }))
-        } else {
-            setState((prevState) => ({
-                ...prevState,
-                cardNumberError: ''
-            }))
-        }
+        validateFieldLength({ value, minLength: 16, setValidationsErrors, error: 'numberError', errorMessage: 'Please check the card number details!' });
     };
     const validateCvc = (value) => {
-        if (value.length < 3) {
-            setState((prevState) => ({
+        validateFieldLength({ value, minLength: 3, setValidationsErrors, error: 'cvcError', errorMessage: 'Please check the cvc details!' });
+    }
+    const validateExpiryDate = (month, year) => {
+        const currentMonth = new Date().getMonth() + 1;
+        const monthValue = parseInt(month, 10);
+        const yearValue = parseInt(year, 10);
+        console.log({ currentMonth, monthValue, currentYear, yearValue });
+        if (yearValue < currentYear || (yearValue === currentYear && monthValue < currentMonth)) {
+            console.warn('check the info, date is expired');
+            setValidationsErrors((prevState) => ({
                 ...prevState,
-                cvcError: 'Please check the cvc number '
-            }))
+                expirationError: 'Please check the expiry info !'
+            }));
         } else {
-            setState((prevState) => ({
+            setValidationsErrors((prevState) => ({
                 ...prevState,
-                cvcError: ''
+                expirationError: ''
             }))
         }
+        return '';
+    };
+
+
+    return {
+        validateCardNumber,
+        validateCvc,
+        validateExpiryDate,
+        validationErrors
     }
-    return {}
 }

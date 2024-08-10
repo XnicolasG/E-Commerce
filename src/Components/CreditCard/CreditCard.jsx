@@ -34,7 +34,7 @@ export const CreditCard = ({
     }
     return (
         <section
-            className={`credit-card ${focused === 'cvc' ? 'flipped' : ''} hover:-translate-y-2`}
+            className={`credit-card ${focused === 'cvc' ? 'flipped' : ''} hover:-translate-y-4`}
         >
             <CardComponent
             number={number} 

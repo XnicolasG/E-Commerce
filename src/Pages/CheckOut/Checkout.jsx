@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { CreditCard } from '../../Components/CreditCard/CreditCard';
+import { useCreditCardValidation } from '../../Hooks/Checkout/useCreditCardValidation';
 
 const Checkout = () => {
     const [state, setState] = useState({
@@ -13,6 +14,7 @@ const Checkout = () => {
     });
     const CARD_LENGTH = 16;
     const NAME_LENGTH = 2;
+    const currentYear = new Date().getFullYear() % 100;
     
 
     const formatCreditCardNumber = (value) => {
@@ -23,54 +25,59 @@ const Checkout = () => {
         // Asegúrate de que no exceda los 16 dígitos
         return formatted.slice(0, 16);
     };
-    const validateCardNumber = (value) => {
-        if (value.length < 16) {
-            setState((prevState) => ({
-                ...prevState,
-                error: 'Please check the card number details!'
-            }))
-        } else {
-            setState((prevState) => ({
-                ...prevState,
-                error: ''
-            }))
-        }
-    };
-    const validateCvc = (value) => {
-        if (value.length < 3) {
-            setState((prevState) => ({
-                ...prevState,
-                error: 'Please check the cvc number '
-            }))
-        } else {
-            setState((prevState) => ({
-                ...prevState,
-                error: ''
-            }))
-        }
-    }
+    const {
+        validateCardNumber,
+        validateCvc,
+        validateExpiryDate,
+        validationErrors
+    } = useCreditCardValidation({currentYear})
+    // const validateCardNumber = (value) => {
+    //     if (value.length < 16) {
+    //         setState((prevState) => ({
+    //             ...prevState,
+    //             error: 'Please check the card number details!'
+    //         }))
+    //     } else {
+    //         setState((prevState) => ({
+    //             ...prevState,
+    //             error: ''
+    //         }))
+    //     }
+    // };
+    // const validateCvc = (value) => {
+    //     if (value.length < 3) {
+    //         setState((prevState) => ({
+    //             ...prevState,
+    //             error: 'Please check the cvc number '
+    //         }))
+    //     } else {
+    //         setState((prevState) => ({
+    //             ...prevState,
+    //             error: ''
+    //         }))
+    //     }
+    // }
 
-    const currentYear = new Date().getFullYear() % 100;
-    
-    const validateExpiryDate = (month, year) => {
-        const currentMonth = new Date().getMonth() + 1;
-        const monthValue = parseInt(month, 10);
-        const yearValue = parseInt(year, 10);
-        console.log({ currentMonth, monthValue, currentYear, yearValue });
-        if (yearValue < currentYear || (yearValue === currentYear && monthValue < currentMonth)) {
-            console.warn('check the info, date is expired');
-            setState((prevState) => ({
-                ...prevState,
-                error: 'Please check the expiry info !'
-            }));
-        }else {
-            setState((prevState) => ({
-                ...prevState,
-                error: ''
-            }))
-        }
-        return '';
-    };
+
+    // const validateExpiryDate = (month, year) => {
+    //     const currentMonth = new Date().getMonth() + 1;
+    //     const monthValue = parseInt(month, 10);
+    //     const yearValue = parseInt(year, 10);
+    //     console.log({ currentMonth, monthValue, currentYear, yearValue });
+    //     if (yearValue < currentYear || (yearValue === currentYear && monthValue < currentMonth)) {
+    //         console.warn('check the info, date is expired');
+    //         setState((prevState) => ({
+    //             ...prevState,
+    //             error: 'Please check the expiry info !'
+    //         }));
+    //     }else {
+    //         setState((prevState) => ({
+    //             ...prevState,
+    //             error: ''
+    //         }))
+    //     }
+    //     return '';
+    // };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
