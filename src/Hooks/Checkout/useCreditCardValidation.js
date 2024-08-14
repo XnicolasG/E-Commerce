@@ -3,18 +3,22 @@ import { validateFieldLength } from "../../utils/checkout/validateFieldLength";
 
 
 
-export const useCreditCardValidation = ({currentYear}) => {
+export const useCreditCardValidation = () => {
     const [validationErrors, setValidationsErrors] = useState({
         cardNumberError: "",
         expirationError: "",
         cvcError: "",
     })
+    const currentYear = new Date().getFullYear() % 100;
+
     const validateCardNumber = (value) => {
         validateFieldLength({ value, minLength: 16, setValidationsErrors, error: 'numberError', errorMessage: 'Please check the card number details!' });
     };
+
     const validateCvc = (value) => {
         validateFieldLength({ value, minLength: 3, setValidationsErrors, error: 'cvcError', errorMessage: 'Please check the cvc details!' });
-    }
+    };
+    
     const validateExpiryDate = (month, year) => {
         const currentMonth = new Date().getMonth() + 1;
         const monthValue = parseInt(month, 10);
@@ -40,6 +44,7 @@ export const useCreditCardValidation = ({currentYear}) => {
         validateCardNumber,
         validateCvc,
         validateExpiryDate,
-        validationErrors
+        validationErrors,
+        currentYear
     }
 }
