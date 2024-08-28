@@ -23,7 +23,7 @@ const ContextProvider = ({ children }) => {
   const [state, setState] = useState(savedState);
   console.log('states:', state.loading);
   const apiUrl = 'https://fakestoreapi.com/products'
-
+  
   useEffect(() => {
     if (!state.items) {
       const fetchData = async () => {
@@ -41,6 +41,8 @@ const ContextProvider = ({ children }) => {
       fetchData();
     }
   }, [])
+  console.log('cartProducts:',state.cartProducts);
+  
   useEffect(() => {
     localStorage.setItem('cartState', JSON.stringify(state));
   }, [state])
@@ -98,7 +100,7 @@ const ContextProvider = ({ children }) => {
     }
   }, [state.items, state.searchProduct, state.searchByCategory])
 
-  console.log(state.filteredItems);
+  console.log(state.Order);
   // Function to open the cart detail
   const openCartDetail = () => {
     updateState({

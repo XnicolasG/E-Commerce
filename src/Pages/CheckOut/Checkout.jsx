@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CreditCard } from '../../Components/CreditCard/CreditCard';
 import { FormPayment } from '../../Components/Checkout/FormPayment';
+import { CartResume } from '../../Components/Checkout/CartResume';
 
 const Checkout = () => {
     const [state, setState] = useState({
@@ -26,6 +27,7 @@ const Checkout = () => {
                 focused={state.focus}
             />
             <FormPayment state={state} setState={setState} />
+            <CartResume />
         </section>
     )
 }

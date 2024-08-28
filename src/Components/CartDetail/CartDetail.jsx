@@ -2,40 +2,17 @@ import React, { useContext } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import { CartContext } from '../../Context/ContextProvider'
 import CardCart from './CardCart'
-import { totalPrice } from '../../utils/reducer'
+import { useCreateOrder } from '../../Hooks/Checkout/useCreateOrder.js'
 import { useNavigate } from 'react-router-dom'
 
 const CartDetail = () => {
   const { state, closeCartDetail, updateState } = useContext(CartContext)
-  let date = Date.now()
+  const { formattedTotal } = useCreateOrder()
   const navigate = useNavigate();
-  const totalPriceString = totalPrice(state.cartProducts);
-  const totalPriceNumber = parseFloat(totalPriceString); 
-  const formattedTotal = totalPriceNumber.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-  const onCheckout = () => {
-    if (state.cartProducts.length === 0) {
-      console.log('add some products');
-    } else {
-      const today = new Date(date)
-      const formattedDate = today.toString().slice(0, 24)
-
-      const orderToAdd = {
-        id: formattedDate,
-        products: state.cartProducts,
-        totalAmount: formattedTotal,
-        totalProducts: state.count,
-      }
-
-      updateState({
-        Order: [...state.Order, orderToAdd],
-        cartProducts: [],
-        count: 0,
-      })
-      closeCartDetail()
-      navigate('/Checkout')
-      console.log(formattedDate);
-    }
+  const handleCheckout = () => {
+    navigate('/Checkout')
+    closeCartDetail()
   }
 
   return (
@@ -57,15 +34,19 @@ const CartDetail = () => {
           ))
         }
       </div>
-      <section className='flex flex-col items-center mt-6 text-xl'>
-        <p>Total: <span className=' font-semibold'>$ {formattedTotal}</span></p>
-        <button
-          onClick={onCheckout}
-          className={`bg-black w-52 py-2 mt-2 font-bold  text-white rounded `}
-          type='button'>
-          Checkout
-        </button>
-      </section>
+      {
+        state.cartProducts.length === 0
+          ? <p className='text-center text-lg font-bold mt-10'>Your cart is empty</p>
+          : <section className='flex flex-col items-center mt-6 text-xl'>
+            <p>Total: <span className=' font-semibold'>$ {formattedTotal}</span></p>
+            <button
+              onClick={handleCheckout}
+              className={`bg-black w-52 py-2 mt-2 font-bold  text-white rounded `}
+              type='button'>
+              Checkout
+            </button>
+          </section>
+      }
     </aside>
   )
 }
