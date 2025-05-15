@@ -21,15 +21,12 @@ export const CreditCard = ({
     switch (cardType) {
         case 'visa':
             CardComponent = VisaComponent;
-            console.log('visa');
             break;
         case 'mastercard':
             CardComponent = MasterCardComponent;
-            console.log('MC');
             break;
         default:
             CardComponent = DefaultComponent;
-            console.log('DEf');
             break;
     }
     return (

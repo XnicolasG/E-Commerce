@@ -15,18 +15,20 @@ const Checkout = () => {
     });
     return (
         <section
-            className=' flex flex-col items-center py-4 m-20 mx-auto w-[90%] md:w-[80%] lg:w-[70%] '
+            className=' flex flex-col md:flex-row-reverse items-center sm:justify-between  py-4 m-20 mx-auto w-[90%] md:w-[80%] '
         >
-            <CreditCard
-                className=' '
-                number={state.number}
-                expiryMonth={state.expiryMonth}
-                expiryYear={state.expiryYear}
-                cvc={state.cvc}
-                name={state.name}
-                focused={state.focus}
-            />
-            <FormPayment state={state} setState={setState} />
+            <div>
+                <CreditCard
+                    className=' '
+                    number={state?.number}
+                    expiryMonth={state.expiryMonth}
+                    expiryYear={state.expiryYear}
+                    cvc={state.cvc}
+                    name={state.name}
+                    focused={state.focus}
+                />
+                <FormPayment state={state} setState={setState} />
+            </div>
             <CartResume />
         </section>
     )

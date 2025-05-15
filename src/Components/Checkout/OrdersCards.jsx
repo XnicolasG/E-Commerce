@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { CartContext } from '../../Context/ContextProvider'
 
 const OrdersCards = () => {
@@ -6,12 +6,12 @@ const OrdersCards = () => {
     const orders = state?.Order.slice().reverse()
     // if Order is empty state will be '' if not, with the the first element id
     const [selectOrderById, setSelectOrderById] = useState(orders[0]?.id || '');
-    
-    const handleClick = (orderId) =>{
+
+    const handleClick = (orderId) => {
         setSelectOrderById(orderId);
         updateState({
             // finding the specific order by it's id.
-            productDetail: orders.find(order => order.id === orderId) 
+            productDetail: orders.find(order => order.id === orderId)
         })
     }
     return (
@@ -21,20 +21,19 @@ const OrdersCards = () => {
                 <hr className="h-[2px] w-full border-t-0 my-2 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent" />
             )}
 
-            {
-                orders.map(prod => (
-                    <>
-                        {state.Order.length > 1 && (
-                            <hr className="h-[2px] w-full border-t-0 my-2 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent" />
+            <>
+                {state.Order.length > 1 && (
+                    <hr className="h-[2px] w-full border-t-0 my-2 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent" />
 
-                        )}
+                )}
+                {
+                    orders.map(prod => (
                         <section
                             key={prod.id}
                             onClick={() => handleClick(prod.id)}
                             // if the current id in the map is the same as the one with catch on the state text color will change
-                            className={`w-full mb-2 flex justify-around p-2 gap-2 mx-auto bg-transparent transition-all ${
-                                prod.id === selectOrderById ? 'text-cyan-500' : ''
-                            }`}
+                            className={`w-full mb-2 flex justify-around p-2 gap-2 mx-auto bg-transparent transition-all ${prod.id === selectOrderById ? 'text-cyan-500' : ''
+                                }`}
                         >
                             <div className='flex flex-col w-2/3'>
                                 <p className='flex gap-x-1'>
@@ -65,9 +64,9 @@ const OrdersCards = () => {
                             </div>
 
                         </section>
-                    </>
-                ))}
-                <hr className="h-[2px] w-full border-t-0 my-2 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent" />
+                    ))}
+            </>
+            <hr className="h-[2px] w-full border-t-0 my-2 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent" />
         </div>
     )
 }

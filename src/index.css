@@ -12,9 +12,14 @@ body {
     @apply p-2 border-2 border-gray-300 rounded;
     -moz-appearance: textfield;
 }
+.inputError{
+  @apply p-2 border-2 border-red-500 rounded;
+}
 
 .inputStyle::-webkit-outer-spin-button,
-.inputStyle::-webkit-inner-spin-button {
+.inputStyle::-webkit-inner-spin-button,
+.inputError::-webkit-outer-spin-button,
+ .inputError::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }

@@ -8,7 +8,7 @@ import jewelery from '../../img/jewelery.jpeg'
 import { NavLink } from 'react-router-dom'
 
 const Main = () => {
-    const { state, updateState } = useContext(CartContext)
+    const { updateState } = useContext(CartContext)
 
     const banners = [
         {
@@ -22,7 +22,7 @@ const Main = () => {
             image: womenBanner,
             link: '/women',
             category: `Women's clothing`
-            
+
         },
         {
             name: `Jewelery`,
@@ -55,12 +55,12 @@ const Main = () => {
                 {
                     banners.map((art) => (
                         <NavLink
-                        key={art.name}
-                        className='flex' 
-                        to={art.link}
-                        onClick={() => updateState({
-                            searchByCategory: art.category
-                        }) }
+                            key={art.name}
+                            className='flex'
+                            to={art.link}
+                            onClick={() => updateState({
+                                searchByCategory: art.category
+                            })}
                         >
                             <div className='flex text-xl sm:text-md md:text-lg font-semibold text-white relative overflow-hidden'>
                                 <img className='w-full hover:scale-110 transition-all' src={art.image} alt={art.name} />
