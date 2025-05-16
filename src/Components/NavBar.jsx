@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { CartContext } from '../Context/ContextProvider';
 
@@ -16,7 +16,6 @@ const NavBar = () => {
     ];
     const navPaths2 = [
         { name: 'Orders', path: '/MyOrder' },
-        { name: `🛒 ${state.count}`, path: '/' },
     ]
     const activeStyle = ' font-semibold'
     return (
@@ -70,6 +69,7 @@ const NavBar = () => {
                             )
                         })
                     }
+                    <p className='cursor-pointer' onClick={openCartDetail} >🛒{state.count}</p>
                 </li>
             </ul>
         </nav>
