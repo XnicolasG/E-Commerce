@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
+import  { useEffect } from 'react'
 import { createContext, useState } from "react";
 
 export const CartContext = createContext()
 
 const ContextProvider = ({ children }) => {
   // grouped state
-
 
   const initialState = {
     count: 0,
@@ -17,7 +16,8 @@ const ContextProvider = ({ children }) => {
     productDetail: [],
     searchProduct: null,
     searchByCategory: null,
-    filteredItems: null
+    filteredItems: null,
+    user : {role: 'client', profile: 'guest'}
   }
   const savedState = JSON.parse(localStorage.getItem('cartState')) || initialState;
   const [state, setState] = useState(savedState);
@@ -52,6 +52,11 @@ const ContextProvider = ({ children }) => {
       ...prevState,
       ...updates
     }))
+  }
+
+  //update profile
+  const updateUserProfile = profile => {
+    updateState({user: {...state.user, profile}});
   }
 
   // filter function
@@ -148,6 +153,7 @@ const ContextProvider = ({ children }) => {
         updateState,
         openCartDetail,
         closeCartDetail,
+        updateUserProfile,
         onAddToCart,
         filteredProducts,
       }}

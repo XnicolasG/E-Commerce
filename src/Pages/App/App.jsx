@@ -1,11 +1,11 @@
-import React from 'react'
+// import React from 'react'
 import { BrowserRouter, useRoutes } from 'react-router-dom';
 import Home from '../Home/Home.jsx';
 import MyAccount from '../MyAccount/MyAccount.jsx'
 import Orders from '../Orders/Orders.jsx'
 import SingIn from '../SingIn/SingIn.jsx'
 import NotFound from '../NotFound/NotFound.jsx'
-import NavBar from '../../Components/NavBar.jsx';
+import NavBar from '../../Components/navbar/NavBar.jsx';
 import './../../App.css'
 import ContextProvider from '../../Context/ContextProvider.jsx';
 import ProductDetail from '../ProductDetail/ProductDetail.jsx';

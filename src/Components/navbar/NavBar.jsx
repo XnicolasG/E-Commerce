@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
-import { CartContext } from '../Context/ContextProvider';
+import { CartContext } from '../../Context/ContextProvider';
+import { ProfileSelector } from './ProfileSelector';
 
 
 
@@ -18,6 +19,8 @@ const NavBar = () => {
         { name: 'Orders', path: '/MyOrder' },
     ]
     const activeStyle = ' font-semibold'
+    console.log(state);
+    
     return (
         <nav className='flex justify-between items-center p-3 bg-black backdrop-blur-sm text-white fixed z-30 top-0 w-full text-xs md:text-lg '>
             <ul className='flex items-center'>
@@ -59,16 +62,21 @@ const NavBar = () => {
                                             openCartDetail()
                                         }
                                     }}
-                                >
+                                >{
+                                    
+                                    
+                                    state.user?.profile !== 'guest' &&
                                     <p
                                         className={cartWithItems}
+
                                     >
                                         {item.name}
                                     </p>
-                                </NavLink>
+                                }</NavLink>
                             )
                         })
                     }
+                    <ProfileSelector />
                     <p className='cursor-pointer' onClick={openCartDetail} >🛒{state.count}</p>
                 </li>
             </ul>
