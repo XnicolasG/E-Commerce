@@ -1,4 +1,4 @@
-import  { useEffect } from 'react'
+import { useEffect } from 'react'
 import { createContext, useState } from "react";
 
 export const CartContext = createContext()
@@ -17,13 +17,20 @@ const ContextProvider = ({ children }) => {
     searchProduct: null,
     searchByCategory: null,
     filteredItems: null,
-    user : {role: 'client', profile: 'guest'}
+    user: {
+      role: 'client', 
+      profile:
+      {
+        name: 'user1',
+        orders: []
+      }
+    }
   }
   const savedState = JSON.parse(localStorage.getItem('cartState')) || initialState;
   const [state, setState] = useState(savedState);
   console.log('states:', state.loading);
   const apiUrl = 'https://fakestoreapi.com/products'
-  
+
   useEffect(() => {
     if (!state.items) {
       const fetchData = async () => {
@@ -41,8 +48,8 @@ const ContextProvider = ({ children }) => {
       fetchData();
     }
   }, [])
-  console.log('cartProducts:',state.cartProducts);
-  
+  console.log('cartProducts:', state.cartProducts);
+
   useEffect(() => {
     localStorage.setItem('cartState', JSON.stringify(state));
   }, [state])
@@ -56,7 +63,7 @@ const ContextProvider = ({ children }) => {
 
   //update profile
   const updateUserProfile = profile => {
-    updateState({user: {...state.user, profile}});
+    updateState({ user: { ...state.user, profile } });
   }
 
   // filter function

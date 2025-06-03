@@ -65,7 +65,7 @@ const NavBar = () => {
                                 >{
                                     
                                     
-                                    state.user?.profile !== 'guest' &&
+                                    state.user?.profile?.name !== 'guest' &&
                                     <p
                                         className={cartWithItems}
 
