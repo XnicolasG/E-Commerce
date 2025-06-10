@@ -3,7 +3,8 @@ import { CartContext } from '../../Context/ContextProvider'
 
 const OrdersCards = () => {
     const { state, updateState } = useContext(CartContext)
-    const orders = state?.user.profile.orders.slice().reverse()
+    const profile = state.user.profile.name
+    const orders = state?.orders[profile].slice().reverse()
     // if Order is empty state will be '' if not, with the the first element id
     const [selectOrderById, setSelectOrderById] = useState(orders[0]?.id || '');
 
@@ -17,12 +18,12 @@ const OrdersCards = () => {
     return (
         <div className={`text-white bg-black flex flex-col text-center rounded shadow-md h-auto shadow-black p-2 w-full sm:w-96`}>
             <p className='font-bold text-lg'>All orders</p>
-            {state.Order.length <= 1 && (
+            {state.orders[profile].length <= 1 && (
                 <hr className="h-[2px] w-full border-t-0 my-2 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent" />
             )}
 
             <>
-                {state.Order.length > 1 && (
+                {state.orders[profile].length > 1 && (
                     <hr className="h-[2px] w-full border-t-0 my-2 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent" />
 
                 )}

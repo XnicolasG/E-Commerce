@@ -12,18 +12,22 @@ const ContextProvider = ({ children }) => {
     loading: true,
     openCart: false,
     cartProducts: [],
-    Order: [],
+    totalOrders: [],
     productDetail: [],
     searchProduct: null,
     searchByCategory: null,
     filteredItems: null,
     user: {
-      role: 'client', 
+      role: 'client',
       profile:
       {
         name: 'guest',
-        orders: []
       }
+    },
+    orders: {
+      guest: [],
+      user1: [],
+      user2: [],
     }
   }
   const savedState = JSON.parse(localStorage.getItem('cartState')) || initialState;
@@ -64,9 +68,9 @@ const ContextProvider = ({ children }) => {
 
   //update profile
   const updateUserProfile = profile => {
-   const updatedUser = {
-        ...state.user,
-        profile: { name: profile, orders: state.user.profile.orders }
+    const updatedUser = {
+      ...state.user,
+      profile: { name: profile }
     };
     updateState({ user: updatedUser });
     localStorage.setItem("cartState", JSON.stringify({ ...state, user: updatedUser }));
@@ -74,13 +78,14 @@ const ContextProvider = ({ children }) => {
   }
 
   // Add orders to user's orders
-  const updateUserOrders = order => {
-    const updateOrders = {
-      ...state.user,
-      profile: { name: state.user.profile.name, orders:[...state.user.profile.orders, order]}
-    };
-    updateState({ user: updateOrders})
-    localStorage.setItem("cartState", JSON.stringify({ ...state, user: updateOrders}) )
+  const updateUserOrders = (order) => {
+    const profile = state.user.profile.name
+    const updateUserOrders = {
+      ...state.orders,
+      [profile]: [...(state.orders?.[profile] || []), order]
+    }
+    updateState({ orders: updateUserOrders })
+    localStorage.setItem("cartState", JSON.stringify({ ...state, orders: updateUserOrders }))
   }
 
   // filter function

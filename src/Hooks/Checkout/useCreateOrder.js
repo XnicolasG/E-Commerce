@@ -24,6 +24,7 @@ export const useCreateOrder = () => {
             }
             updateUserOrders(orderToAdd)
             updateState({
+                totalOrders: [...(state.totalOrders || []), orderToAdd],
                 cartProducts: [],
                 count: 0,
             })
