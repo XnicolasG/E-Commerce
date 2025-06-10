@@ -5,7 +5,7 @@ import { CartContext } from "../../Context/ContextProvider";
 
 
 export const useCreateOrder = () => {
-    const { state, updateState } = useContext(CartContext)
+    const { state, updateState, updateUserOrders } = useContext(CartContext)
     let date = Date.now()
     const navigate = useNavigate();
     const totalPriceString = totalPrice(state.cartProducts);
@@ -22,9 +22,8 @@ export const useCreateOrder = () => {
                 totalAmount: formattedTotal,
                 totalProducts: state.count,
             }
-
+            updateUserOrders(orderToAdd)
             updateState({
-                Order: [...state.Order, orderToAdd],
                 cartProducts: [],
                 count: 0,
             })

@@ -21,7 +21,7 @@ const ContextProvider = ({ children }) => {
       role: 'client', 
       profile:
       {
-        name: 'user1',
+        name: 'guest',
         orders: []
       }
     }
@@ -53,6 +53,7 @@ const ContextProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('cartState', JSON.stringify(state));
   }, [state])
+
   // Update state function
   const updateState = (updates) => {
     setState((prevState) => ({
@@ -63,7 +64,23 @@ const ContextProvider = ({ children }) => {
 
   //update profile
   const updateUserProfile = profile => {
-    updateState({ user: { ...state.user, profile } });
+   const updatedUser = {
+        ...state.user,
+        profile: { name: profile, orders: state.user.profile.orders }
+    };
+    updateState({ user: updatedUser });
+    localStorage.setItem("cartState", JSON.stringify({ ...state, user: updatedUser }));
+
+  }
+
+  // Add orders to user's orders
+  const updateUserOrders = order => {
+    const updateOrders = {
+      ...state.user,
+      profile: { name: state.user.profile.name, orders:[...state.user.profile.orders, order]}
+    };
+    updateState({ user: updateOrders})
+    localStorage.setItem("cartState", JSON.stringify({ ...state, user: updateOrders}) )
   }
 
   // filter function
@@ -161,6 +178,7 @@ const ContextProvider = ({ children }) => {
         openCartDetail,
         closeCartDetail,
         updateUserProfile,
+        updateUserOrders,
         onAddToCart,
         filteredProducts,
       }}

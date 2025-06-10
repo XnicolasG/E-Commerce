@@ -5,7 +5,8 @@ import { useCreateOrder } from '../../Hooks/Checkout/useCreateOrder';
 export const FormPayment = ({ state, setState }) => {
 
     const { onCheckout } = useCreateOrder()
-
+    console.warn(state.user);
+    
     const CARD_LENGTH = 16;
     const NAME_LENGTH = 2;
 

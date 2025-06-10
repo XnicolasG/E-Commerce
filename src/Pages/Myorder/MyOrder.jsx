@@ -1,13 +1,8 @@
-import React, { useContext } from 'react'
 import Layout from '../../Components/Layout/Layout'
-import { CartContext } from '../../Context/ContextProvider'
 import CheckoutCard from '../../Components/Checkout/CheckoutCard'
-import OrdersCards from '../../Components/Checkout/OrdersCards'
+import OrdersCards from '../../Components/Orders/OrdersCards'
 
-const MyOrder = () => {
-    const { state } = useContext(CartContext)
-
-    return (
+const MyOrder = () => {    return (
         <Layout>
             <div className='flex flex-col w-full px-10 items-center'>
                 <h1 className='mb-4'>My Order</h1>

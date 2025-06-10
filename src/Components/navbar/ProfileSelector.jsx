@@ -18,7 +18,7 @@ export const ProfileSelector = () => {
     };
 
     const availableProfiles = ['guest',"user1", "user2"];
-    console.log(profileImages[state.user.profile.name]);
+    console.log(state?.user?.profile);
     
     
     return (
@@ -27,7 +27,7 @@ export const ProfileSelector = () => {
         className="relative inline-block">
             {/* Imagen de perfil actual */}
             <img
-                src={profileImages[state.user.profile.name]}
+                src={profileImages[state.user?.profile.name]}
                 alt={state.user.profile.name}
                 className="size-11 rounded-full border-2 border-gray-300 cursor-pointer hover:border-gray-500 transition-all"
             />
@@ -43,7 +43,7 @@ export const ProfileSelector = () => {
                         <button
                             key={profile}
                             className="flex items-center gap-2 p-2 hover:bg-sky-400 rounded transition-all"
-                            onClick={() => updateUserProfile(profile.name)}
+                            onClick={() => updateUserProfile(profile)}
                         >
                             <img
                                 src={profileImages[profile]}

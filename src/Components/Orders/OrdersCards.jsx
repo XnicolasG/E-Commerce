@@ -3,7 +3,7 @@ import { CartContext } from '../../Context/ContextProvider'
 
 const OrdersCards = () => {
     const { state, updateState } = useContext(CartContext)
-    const orders = state?.Order.slice().reverse()
+    const orders = state?.user.profile.orders.slice().reverse()
     // if Order is empty state will be '' if not, with the the first element id
     const [selectOrderById, setSelectOrderById] = useState(orders[0]?.id || '');
 
@@ -32,7 +32,7 @@ const OrdersCards = () => {
                             key={prod.id}
                             onClick={() => handleClick(prod.id)}
                             // if the current id in the map is the same as the one with catch on the state text color will change
-                            className={`w-full mb-2 flex justify-around p-2 gap-2 mx-auto bg-transparent transition-all ${prod.id === selectOrderById ? 'text-cyan-500' : ''
+                            className={`w-full cursor-pointer mb-2 flex justify-around p-2 gap-2 mx-auto bg-transparent transition-all ${prod.id === selectOrderById ? 'text-cyan-500' : ''
                                 }`}
                         >
                             <div className='flex flex-col w-2/3'>
