@@ -1,17 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../../Context/ContextProvider';
 
 const CheckoutCard = () => {
     const { state } = useContext(CartContext)
     const [displayedProducts, setDisplayedProducts] = useState(null);
 
+    console.warn(state);
+
     useEffect(() => {
-        if (state.productDetail.length === 0) {
-            setDisplayedProducts(state.Order?.slice(-1)[0]);
+        const currentProfile = state.user.profile.name;
+
+        if (!state.orders?.[currentProfile].some(order => order.id === state.productDetail?.id)) {
+            setDisplayedProducts(state.orders?.[currentProfile]?.slice(-1)[0] || null);
         } else {
             setDisplayedProducts(state.productDetail);
         }
-    }, [state.productDetail, state.Order]);
+    }, [state.orders, state.user.profile.name, state.productDetail]);
+
     return (
         <div className='flex flex-col text-white justify-center items-center'>
             {
@@ -41,8 +46,8 @@ const CheckoutCard = () => {
                         }
                         <p className='uppercase font-semibold text-lg bg-black  px-4 text-center rounded shadow shadow-black '>Total: ${displayedProducts.totalAmount}</p>
                     </>
-                    ): (
-                        <p>No products to display</p>
+                ) : (
+                    <p>No products to display</p>
                 )}
         </div>
     )

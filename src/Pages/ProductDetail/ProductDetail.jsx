@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { CartContext } from '../../Context/ContextProvider';
 import { ArrowLeftIcon } from '@heroicons/react/24/solid'

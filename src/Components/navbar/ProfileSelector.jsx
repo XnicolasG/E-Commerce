@@ -18,7 +18,6 @@ export const ProfileSelector = () => {
     };
 
     const availableProfiles = ['guest',"user1", "user2"];
-    console.log(Object.entries(state?.user?.profile));
     
     
     return (

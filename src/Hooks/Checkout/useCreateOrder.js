@@ -27,6 +27,7 @@ export const useCreateOrder = () => {
                 totalOrders: [...(state.totalOrders || []), orderToAdd],
                 cartProducts: [],
                 count: 0,
+                productDetail: orderToAdd
             })
             navigate('/MyOrder')
     }
