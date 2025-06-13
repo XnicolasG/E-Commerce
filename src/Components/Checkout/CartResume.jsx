@@ -8,7 +8,7 @@ export const CartResume = () => {
     const {formattedTotal} = useCreateOrder()
     return (
         <section className="w-1/2 p-4 border-t border-gray-500 ">
-            <div className="flex justify-around mb-2 text-gray-500">
+            <div className="flex justify-around mb-2 text-gray-700 font-semibold">
                 <p>Total products: {state.count}</p>
                 <p>Total to pay: ${formattedTotal} </p>
             </div>

@@ -27,7 +27,7 @@ const CheckoutCard = () => {
                                 key={prod.id}
                                 className='w-full sm:w-72 lg:w-96  mb-4 flex p-2 gap-4 mx-auto rounded shadow-md shadow-black  bg-black '
                             >
-                                <div className='flex items-center w-1/6 p-1 bg-white rounded-sm overflow-hidden'>
+                                <div className='flex items-center w-2/6 p-1 bg-white rounded-sm overflow-hidden'>
                                     <img
                                         className='w-full'
                                         src={prod.image}

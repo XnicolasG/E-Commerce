@@ -16,7 +16,7 @@ const CartDetail = () => {
   }
 
   return (
-   <aside className={`${state.openCart ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-500 ease-in-out flex flex-col pb-20 w-full sm:w-80 lg:w-[500px] h-[100lvh] fixed top-10 sm:top-12 right-0 border-4 border-black rounded-lg backdrop-blur-2xl z-30`}>
+   <aside className={`${state.openCart ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-500 ease-in-out flex flex-col pb-20 w-full sm:w-80 lg:w-[500px] h-[100lvh] fixed sm:top-16 right-0 border-4 border-black overflow-hidden backdrop-blur-2xl z-30`}>
       <div className='flex justify-between items-center p-6'>
         <h2 className='font-semibold text-2xl'>Cart details</h2>
         <p

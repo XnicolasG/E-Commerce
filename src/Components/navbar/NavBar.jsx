@@ -22,7 +22,7 @@ const NavBar = () => {
     console.log(state);
     
     return (
-        <nav className='flex justify-between items-center p-3 bg-black backdrop-blur-sm text-white fixed z-30 top-0 w-full text-xs md:text-lg '>
+        <nav className='flex justify-between items-center p-3 px-3 sm:px-6 bg-black backdrop-blur-sm text-white fixed z-30 top-0 w-full text-xs md:text-lg '>
             <ul className='flex items-center'>
                 <li className='flex gap-3 '>
                     {
@@ -77,7 +77,7 @@ const NavBar = () => {
                         })
                     }
                     <ProfileSelector />
-                    <p className='cursor-pointer' onClick={openCartDetail} >🛒{state.count}</p>
+                    <p className={`cursor-pointer p-1 transition-all duration-150 ${state.count >= 1 ? 'text-black bg-slate-50 rounded-full ' : 'text-slate-50'}`} onClick={openCartDetail} >🛒{state.count}</p>
                 </li>
             </ul>
         </nav>
