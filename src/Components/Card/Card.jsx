@@ -1,15 +1,20 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import '../../App.css'
 import { CartContext } from '../../Context/ContextProvider'
 import { useNavigate } from 'react-router-dom'
 import { totalPrice } from '../../utils/reducer'
+import { ProductQuantity } from '../CartDetail/ProductQuantity'
 
-const Card = ({ id, price, image, title, category, quantity }) => {
-    const { reducerAdd ,updateState, onAddToCart, state } = useContext(CartContext)
+const Card = ({ id, price, image, title, category }) => {
+    const { updateState, onAddToCart, state } = useContext(CartContext)
     const navigate = useNavigate();
     const HandleClick = () => {
         navigate(`/ProductDetail/${id}`)
     }
+    let quantity = state.cartProducts.find((prod)=>prod.title === title)?.quantity || 0
+
+
+    console.warn(quantity);
     const cartAdd = () => {
         onAddToCart({ id, price, image, title, category, });
         const newTotal = totalPrice(state.cartProducts)
@@ -35,10 +40,19 @@ const Card = ({ id, price, image, title, category, quantity }) => {
                     <p className='title h-20 overflow-auto p-1 text-pretty'>{title}</p>
                     <p className='text-lg font-semibold'>${price}</p>
                 </div>
-                <button
-                    onClick={cartAdd}
-                    className='p-1 my-2 w-22 text-white bg-blue-600 rounded-md  hover:bg-blue-700 transition-all duration-200'
-                    type='button'>Add to cart</button>
+                <div className='flex flex-col w-full  overflow-hidden h-12 '>
+                    <button
+                        onClick={cartAdd}
+                        className={` ${quantity >= 1 && '-translate-y-10 ' } p-1 my-2 text-white bg-blue-600 rounded-md  hover:bg-blue-700 transition-all duration-200`}
+                        type='button'>
+                        Add to cart
+                    </button>
+                    <ProductQuantity
+                        id={id}
+                        quantity={quantity}
+                        styles={`${quantity >= 1 && '-translate-y-12 '} flex justify-center bg-white text-black  transition-all duration-200`}
+                    />
+                </div>
             </section>
         </div>
     )
