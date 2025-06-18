@@ -14,7 +14,6 @@ const Card = ({ id, price, image, title, category }) => {
     let quantity = state.cartProducts.find((prod)=>prod.title === title)?.quantity || 0
 
 
-    console.warn(quantity);
     const cartAdd = () => {
         onAddToCart({ id, price, image, title, category, });
         const newTotal = totalPrice(state.cartProducts)
@@ -50,7 +49,7 @@ const Card = ({ id, price, image, title, category }) => {
                     <ProductQuantity
                         id={id}
                         quantity={quantity}
-                        styles={`${quantity >= 1 && '-translate-y-12 '} flex justify-center bg-white text-black  transition-all duration-200`}
+                        styles={`${quantity >= 1 && '-translate-y-10 '} flex justify-center bg-white text-black  transition-all duration-200`}
                     />
                 </div>
             </section>

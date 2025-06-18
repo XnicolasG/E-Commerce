@@ -138,7 +138,7 @@ const ContextProvider = ({ children }) => {
   // Function to open the cart detail
   const openCartDetail = () => {
     updateState({
-      openCart: true
+      openCart: !state.openCart
     })
   }
   // Function to close the cart detail

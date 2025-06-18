@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { CartContext } from '../../Context/ContextProvider'
 
 const Search = () => {
-    const {state, updateState} = useContext(CartContext)
+    const { updateState} = useContext(CartContext)
   return (
     <div>
         <input 
