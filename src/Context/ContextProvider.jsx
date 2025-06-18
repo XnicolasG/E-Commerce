@@ -96,7 +96,7 @@ const ContextProvider = ({ children }) => {
   }
   // Filter category
   const filteredCategory = (items, searchByCategory) => {
-    return items?.filter(item => item.category.toLowerCase().includes(searchByCategory.toLowerCase()))
+    return items?.filter(item => item.category.toLowerCase() === searchByCategory.toLowerCase())
   }
 
   const filterBy = (searchType, items, searchproduct, searchByCategory) => {

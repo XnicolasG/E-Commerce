@@ -58,6 +58,7 @@ export const CartResume = () => {
             </section>
             <Modal
                 isOpen={showConfirm}
+                title='Confimartion'
                 onCancel={()=> setShowConfirm(false)}
                 onConfirm={handleEmpty}
             >
